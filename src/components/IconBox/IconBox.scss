@@ -1,0 +1,18 @@
+.IconBox{
+    width: 69px;
+    height: 80px;
+    // background: #f1f1f1;
+    margin: 0px 11px;
+    .ImgBox{
+        width: 69px;
+        height: 80px;
+        opacity: 0.3;
+        img{
+            width: 100%;
+        }
+        filter: brightness(var(--bright));
+    }
+    .act{
+        opacity: 1;
+    }
+}

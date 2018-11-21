@@ -1,0 +1,30 @@
+.BotBannerBox{
+    width: 100%;
+    height: 108px;
+    // background: #333;
+    flex-shrink: 0;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    z-index: 999;
+    .LeftBox{
+        width: 50%;
+        height: 100%;
+        // background: #666;
+        flex-grow: 1;
+        display: flex;
+        justify-content: flex-start;
+        align-items: flex-end;
+    }
+    .RightBox{
+        width: 50%;
+        height: 100%;
+        // background: #999;
+        flex-grow: 1;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+    }
+}

@@ -1,0 +1,99 @@
+.CatalogList {
+    width: 100%;
+    height: 100%;
+    // background: #999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .ListBox {
+        width: 274px;
+        min-width: 274px;
+        max-width: 274px;
+        height: 100%;
+        // background: red;
+        flex-shrink: 0;
+        min-width: 35%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        $bgcolor: #fff;
+        .ListButton {
+            width: 258px;
+            height: 73px;
+            margin: 10px 0px;
+
+            background: $bgcolor;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #501F7F;
+            .Catalog{
+                width: 73px;
+                height: 100%;
+                flex-shrink: 0;
+                // background: #999;
+
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+            .Value{
+                flex-grow: 1;
+                
+            }
+        }
+
+        .ActButton {
+            &::after {
+                position: absolute;
+                content: '';
+                width: 23px;
+                height: 23px;
+                right: 0px;
+                top: 50%;
+                transform: translateX(50%) translateY(-50%) rotate(45deg);
+                background: $bgcolor;
+            }
+        }
+    }
+
+    .SectionBox {
+        flex-grow: 1;
+        width: 65%;
+        height: 100%;
+        // background: blue;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        
+        .CatalogSection{
+            max-width: 100%;
+            position: relative;
+            .SectionBkg{
+                // max-width: 100%;
+                width: 645px;
+            }
+            .SectionDetial{
+                position: absolute;
+                width: 333px;
+                height: 333px;
+                top: 79px;
+                left: 160px;
+                // background: #f1f1f1;
+                overflow: auto;
+                .Section{
+                    width: 100%;
+                    // height: 25px;
+                    word-break: break-all;
+                    margin: 15px 0px;
+                    color: #501F7F;
+                    font-weight: bold;
+                }
+            }
+        }
+        
+    }
+}

@@ -1,0 +1,90 @@
+/**
+ * 清除ul ol的样式 
+ */
+
+ ul,
+ ol,
+ ul li,
+ ol li {
+   list-style: none !important;
+ }
+ 
+ 
+ /* 初始化 */
+ 
+ body,
+ div,
+ ul,
+ li,
+ ol,
+ h1,
+ h2,
+ h3,
+ h4,
+ h5,
+ h6,
+ input,
+ textarea,
+ select,
+ p,
+ dl,
+ dt,
+ dd,
+ a,
+ img,
+ button,
+ form,
+ table,
+ th,
+ tr,
+ td,
+ tbody,
+ article,
+ aside,
+ details,
+ figcaption,
+ figure,
+ footer,
+ header,
+ hgroup,
+ menu,
+ nav,
+ section {
+   margin: 0;
+   padding: 0;
+   border: none;
+ }
+ 
+ 
+ /**
+   * 设置行高 
+   */
+ 
+ div,
+ p,
+ a {
+   text-decoration: none !important;
+ }
+ a:active{
+   color: unset;
+ }
+ a:link {color:unset;}		/* 未被访问的链接 */
+ a:visited {color:unset;}	/* 已被访问的链接 */
+ a:hover {color:unset;}	/* 鼠标指针移动到链接上 */
+ 
+ /* body 样式*/
+ html,
+ body {
+   font-family: "Microsoft YaHei", 微软雅黑, "MicrosoftJhengHei";
+   margin: 0 auto;
+   background: #501F7F;
+   color: #333333 !important;
+   width: 100%;
+   height: 100%;
+   -webkit-tap-highlight-color: transparent;
+   overflow: hidden;
+   &.modal-open {
+     position: fixed;
+     width: 100%;
+   }
+ }
