@@ -1,18 +1,23 @@
 import React, { Component } from "react";
 import style from "./TabNav.scss";
+import websqlapi from 'common/websqlapi'
 
 export class TabNav extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      Title:null,
+      TabList:[],
       ContentData: [],
       id:null,
+      tabid:null,
       CustomIndex:0,
     };
     this.refreshProps = this.refreshProps.bind(this);
     this.createTabList = this.createTabList.bind(this);
     this.createTabContent = this.createTabContent.bind(this);
     this.handleJumpurl = this.handleJumpurl.bind(this);
+    this.getTablist = this.getTablist.bind(this);
   }
   componentWillReceiveProps(nextprops) {
     this.refreshProps(nextprops);
@@ -23,26 +28,31 @@ export class TabNav extends Component {
   refreshProps(props) {
     this.state.ContentData =
       props.data != undefined ? props.data : this.state.ContentData;
-    this.state.Title =
-      props.title != undefined ? props.title : this.state.Title;
+    // this.state.Title =
+    //   props.title != undefined ? props.title : this.state.Title;
     this.state.id = props.contentid!=undefined?props.contentid:null;
+    this.state.tabid = props.tabgroup!=undefined?props.tabgroup:null;
+    this.state.url = props.url!=undefined?props.url:null;
+    this.getTablist();
     this.setState(this.state);
   }
+  getTablist(){
+    websqlapi.getTabList(this.state.tabid,(res)=>{
+      if (res.length > 0) {
+        this.state.Title = res[0].title;
+        this.state.TabList = res[0].tablist;
+        this.setState(this.state);
+      }
+    })
+  }
   createTabContent() {
-    if (this.state.ContentData.length == 0) return;
-    var cont = this;
-    var itemNodes = this.state.ContentData.map(function(itemBase, index) {
-        if (cont.state.id==itemBase.id) {
-            return <img src={itemBase.value} alt="" key={"detial" + index} />;
-        }
-    });
-    return itemNodes;
+    return <img src={this.state.url} alt="" />;
   }
   createTabList() {
-    if (this.state.ContentData.length == 0) return;
+    if (this.state.TabList.length == 0) return;
     var cont = this;
-    var itemNodes = this.state.ContentData.map(function(itemBase, index) {
-      return <div className={[style.Button,cont.state.id==itemBase.id?style.act:''].join(' ')} onClick={cont.handleJumpurl.bind(cont,itemBase.id)}>{itemBase.title}</div>;
+    var itemNodes = this.state.TabList.map(function(itemBase, index) {
+      return <div key={'nav'+index} className={[style.Button,cont.state.id==itemBase.id.split('-')[1]?style.act:''].join(' ')} onClick={cont.handleJumpurl.bind(cont,itemBase.id.split('-')[1])}>{itemBase.value}</div>;
     });
     return itemNodes;
   }

@@ -3,14 +3,19 @@ import style from "./Detial.scss";
 import { api } from "common/app";
 import TabNav from "components/TabNav";
 import returnback from "./img/returnback.png";
+import websqlapi from 'common/websqlapi'
 
 export class Detial extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      page:null,
+
       ContentID: null,
       Title: null,
       Type: null,
+      TabGroup:null,
+      url:'',
       Content: []
     };
     this.refreshProps = this.refreshProps.bind(this);
@@ -26,35 +31,31 @@ export class Detial extends Component {
     this.refreshProps(this.props);
   }
   refreshProps(props) {
+    this.state.page = props.match.url.split('/')[1];
+    this.state.catalog = props.match.params.catalog;
     this.state.ContentID = props.match.params.section;
     this.setState(this.state);
     this.getDetial();
   }
   getDetial() {
     if (this.state.ContentID == null) return;
-    api.getSectionDetial(this.state.ContentID).then(
-      res => {
-        if (res.code == 200) {
-          this.state.Title = res.data.title;
-          this.state.Type = res.data.type;
-          this.state.Content = res.data.content;
+    websqlapi.getDetialInfo(this.state.page,(parseInt(this.state.catalog)+1),this.state.ContentID,(res)=>{
+      if (res.length>0) {
+          this.state.Type = res[0].type;
+          this.state.TabGroup = res[0].tabgroup;
+          this.state.Content = res;
+          this.state.url = res[0].url
           this.setState(this.state);
-        } else {
-          alert(res.msg);
-        }
-      },
-      err => {
-        console.log(err);
       }
-    );
+    });
   }
   createImgContent() {
-    if (this.state.Content.length == 0) return;
-    var cont = this;
-    var itemNodes = this.state.Content.map(function(itemBase, index) {
-      return <img src={itemBase.value} alt="" key={"detial" + index} />;
-    });
-    return itemNodes;
+    // if (this.state.Content.length == 0) return;
+    // var cont = this;
+    // var itemNodes = this.state.Content.map(function(itemBase, index) {
+    //   return ;
+    // });
+    return <img src={this.state.url} alt=""/>;
   }
   switchType() {
     switch (this.state.Type) {
@@ -64,7 +65,9 @@ export class Detial extends Component {
         return (
           <TabNav
             data={this.state.Content}
-            title={this.state.Title}
+            // title={this.state.Title}
+            url={this.state.url}
+            tabgroup={this.state.TabGroup}
             handleroute={this.HandleDetialRoute}
             contentid={this.state.ContentID}
           />

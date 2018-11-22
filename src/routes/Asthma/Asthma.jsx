@@ -39,7 +39,7 @@ export class Asthma extends Component {
           <Switch>
             {/*哮喘*/}
             <Route path="/asthma/list/:catalog" component={CatalogList} />
-            <Route path="/asthma/detial/:section" component={Detial} />
+            <Route path="/asthma/detial/:catalog/:section" component={Detial} />
             <Redirect from="/asthma" to="/asthma/list/0" />
           </Switch>
         </div>
