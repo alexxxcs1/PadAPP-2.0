@@ -1,21 +1,22 @@
 import React, { Component } from "react";
 import style from "./Detial.scss";
 import { api } from "common/app";
+import AnswerTab from "components/AnswerTab";
 import TabNav from "components/TabNav";
 import returnback from "./img/returnback.png";
-import websqlapi from 'common/websqlapi'
+import websqlapi from "common/websqlapi";
 
 export class Detial extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      page:null,
+      page: null,
 
       ContentID: null,
       Title: null,
       Type: null,
-      TabGroup:null,
-      url:'',
+      TabGroup: null,
+      url: "",
       Content: []
     };
     this.refreshProps = this.refreshProps.bind(this);
@@ -31,7 +32,7 @@ export class Detial extends Component {
     this.refreshProps(this.props);
   }
   refreshProps(props) {
-    this.state.page = props.match.url.split('/')[1];
+    this.state.page = props.match.url.split("/")[1];
     this.state.catalog = props.match.params.catalog;
     this.state.ContentID = props.match.params.section;
     this.setState(this.state);
@@ -39,15 +40,20 @@ export class Detial extends Component {
   }
   getDetial() {
     if (this.state.ContentID == null) return;
-    websqlapi.getDetialInfo(this.state.page,(parseInt(this.state.catalog)+1),this.state.ContentID,(res)=>{
-      if (res.length>0) {
+    websqlapi.getDetialInfo(
+      this.state.page,
+      parseInt(this.state.catalog) + 1,
+      this.state.ContentID,
+      res => {
+        if (res.length > 0) {
           this.state.Type = res[0].type;
           this.state.TabGroup = res[0].tabgroup;
           this.state.Content = res;
-          this.state.url = res[0].url
+          this.state.url = res[0].url;
           this.setState(this.state);
+        }
       }
-    });
+    );
   }
   createImgContent() {
     // if (this.state.Content.length == 0) return;
@@ -55,7 +61,7 @@ export class Detial extends Component {
     // var itemNodes = this.state.Content.map(function(itemBase, index) {
     //   return ;
     // });
-    return <img src={this.state.url} alt=""/>;
+    return <img src={this.state.url} alt="" />;
   }
   switchType() {
     switch (this.state.Type) {
@@ -64,6 +70,17 @@ export class Detial extends Component {
       case "tab":
         return (
           <TabNav
+            data={this.state.Content}
+            // title={this.state.Title}
+            url={this.state.url}
+            tabgroup={this.state.TabGroup}
+            handleroute={this.HandleDetialRoute}
+            contentid={this.state.ContentID}
+          />
+        );
+      case "answer":
+        return (
+          <AnswerTab
             data={this.state.Content}
             // title={this.state.Title}
             url={this.state.url}
@@ -88,7 +105,7 @@ export class Detial extends Component {
         index
     );
   }
-  HandleUrlRoute(){
+  HandleUrlRoute() {
     this.props.history.push(
       "/" +
         this.props.location.pathname.split("/")[1] +

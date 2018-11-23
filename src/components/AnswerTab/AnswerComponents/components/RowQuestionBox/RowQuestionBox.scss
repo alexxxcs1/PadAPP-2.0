@@ -1,0 +1,27 @@
+.Question{
+    width: 100%;
+    color: #4F1F7F;
+    font-weight: bold;
+    font-size: 18px;
+}
+.AnswersButtonGroup{
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: center;
+    .AnswersButton{
+        padding: 10px;
+        background: rgba($color:  #9271AA, $alpha: 0.3);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 16px;
+        color: #fff;
+        border-radius: 7px;
+        margin: 10px;
+    }
+    .activAnswer{
+        background:#9271AA;
+    }
+}

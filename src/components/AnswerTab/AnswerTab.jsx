@@ -1,8 +1,10 @@
 import React, { Component } from "react";
-import style from "./TabNav.scss";
+import style from "./AnswerTab.scss";
 import websqlapi from "common/websqlapi";
+import AsthmaAnswerACQ from './AnswerComponents/AsthmaAnswerACQ'
+import AsthmaAnswerAQLQ from './AnswerComponents/AsthmaAnswerAQLQ'
 
-export class TabNav extends Component {
+export class AnswerTab extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -15,9 +17,7 @@ export class TabNav extends Component {
     };
     this.refreshProps = this.refreshProps.bind(this);
     this.createTabList = this.createTabList.bind(this);
-    this.createTabContent = this.createTabContent.bind(this);
     this.handleJumpurl = this.handleJumpurl.bind(this);
-    this.getTablist = this.getTablist.bind(this);
   }
   componentWillReceiveProps(nextprops) {
     this.refreshProps(nextprops);
@@ -44,9 +44,6 @@ export class TabNav extends Component {
         this.setState(this.state);
       }
     });
-  }
-  createTabContent() {
-    return <img src={this.state.url} alt="" />;
   }
   createTabList() {
     if (this.state.TabList.length == 0) return;
@@ -75,9 +72,11 @@ export class TabNav extends Component {
       <div className={style.TabNavBox}>
         <div className={style.TitleBox}>{this.state.Title}</div>
         <div className={style.NavButtonBox}>{this.createTabList()}</div>
-        <div className={style.NavContent}>{this.createTabContent()}</div>
+        <div className={style.NavContent}>
+            <AsthmaAnswerAQLQ />
+        </div>
       </div>
     );
   }
 }
-export default TabNav;
+export default AnswerTab;

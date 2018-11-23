@@ -164,6 +164,48 @@ const webapi = {
                     }
                 ]
             });
+            TabGroupData.add({
+                id: 5,
+                title: '舒利迭®慢阻肺治疗领域关键临床研究',
+                tablist: [{
+                        id: '2-4',
+                        value: 'BIOPSY研究'
+                    },
+                    {
+                        id: '2-5',
+                        value: 'TRISTAN研究'
+                    },
+                    {
+                        id: '2-6',
+                        value: 'TORCH研究'
+                    },
+                    {
+                        id: '2-7',
+                        value: '中国注册临床研究'
+                    },
+                    {
+                        id: '2-8',
+                        value: 'INSPIRE研究'
+                    },
+                    {
+                        id: '2-9',
+                        value: 'TORCH事后分析'
+                    }
+                ]
+            });
+            TabGroupData.add({
+                id: 6,
+                title: '2. 信必可®关键研究解读',
+                tablist: [{
+                        id: '4-2',
+                        value: 'PATHOS研究'
+                    },
+                    {
+                        id: '4-3',
+                        value: 'SPEED研究'
+                    }
+                ]
+            });
             //copd
             for (const key in copdreqlib) {
                 let keysplit = key.split('&');
@@ -179,7 +221,7 @@ const webapi = {
 
             //章节表
             let ListData = db.createObjectStore('ListData', {
-                keyPath: 'id',
+                keyPath: 'lid',
                 autoIncrement: true
             });
             ListData.createIndex('id', 'id');
@@ -201,6 +243,7 @@ const webapi = {
             SectionData.createIndex('to', 'to');
 
             //创建章节内容
+            //asthma内容
             for (let z = 0; z < listdata.asthma.length; z++) {
                 ListData.add({
                     id: z,
@@ -210,11 +253,29 @@ const webapi = {
                 })
                 for (let x = 0; x < listdata.asthma[z].list.length; x++) {
                     SectionData.add({
-                        id: 'copdsection' + z + '-' + x,
+                        id: 'asthamasection' + z + '-' + x,
                         father: 'asthma',
                         belonged: z,
                         value: listdata.asthma[z].list[x].title,
                         to: listdata.asthma[z].list[x].to
+                    });
+                }
+            }
+            //copd内容
+            for (let z = 0; z < listdata.copd.length; z++) {
+                ListData.add({
+                    id: z,
+                    belonged: 'copd',
+                    catalog: listdata.copd[z].catalog,
+                    value: listdata.copd[z].value,
+                })
+                for (let x = 0; x < listdata.copd[z].list.length; x++) {
+                    SectionData.add({
+                        id: 'copdsection' + z + '-' + x,
+                        father: 'copd',
+                        belonged: z,
+                        value: listdata.copd[z].list[x].title,
+                        to: listdata.copd[z].list[x].to
                     });
                 }
             }

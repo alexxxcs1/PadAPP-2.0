@@ -1,0 +1,217 @@
+.AnswerBox {
+    width: 90%;
+    margin: 0 auto;
+    // height: 300px;
+    // background: #f9f9f9;
+    .DropBox{
+        width: 100%;
+        height: 250px;
+        background: rgba($color: #fff, $alpha: 0.9);
+        position: fixed;
+        bottom: 0px;
+        left: 0px;
+        z-index: 9999;
+
+        .DropHandleBox{
+            width: 100%;
+            height: 50px;
+            background: #f1f1f1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            .HandleGroup{
+                width: 40%;
+                display: flex;
+                // justify-content: center;
+                align-items: center;
+                color: #4F1F7F;
+                font-weight: bold;
+                font-size: 18px;
+            }
+            & .HandleGroup:nth-child(1){
+                justify-content: flex-start;
+            }
+            & .HandleGroup:nth-child(2){
+                justify-content: flex-end;
+            }
+        }
+        .SelectOption{
+            width: 100%;
+            height: calc(100% - 50px);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+    }
+    .RowTextBox {
+        font-size: 18px;
+        color: #4F1F7F;
+        margin: 10px 0px;
+    }
+
+    .BoldFont {
+        font-weight: bold;
+    }
+    .ContentBox{
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        align-items: flex-start;
+        flex-wrap: wrap;
+        .RowSelect{
+            width: 100%;
+            color: #4F1F7F;
+            font-size: 18px;
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            font-weight: bold;
+            margin: 10px 0px;
+        }
+        .activeSelectInput{
+            width: 218px;
+            height: 33px;
+            background: rgba($color: #4F1F7F, $alpha: 0.3);
+            border-radius: 7px;
+            margin:  0px 5px;
+            input{
+                background:transparent;
+                width: 100%;
+                height: 100%;
+                font-size: 18px;
+                outline: none;
+                color: #4F1F7F;
+                font-weight: bold;
+                text-indent: 30px;
+            }
+        }
+        .activeSelectOption{
+            width: 167px;
+            height: 33px;
+            background: rgba($color: #4F1F7F, $alpha: 0.3);
+            border-radius: 7px;
+            margin:  0px 5px;
+            position: relative;
+            outline: none;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            &:focus{
+                .ActiveDropBox{
+                    display: block;
+                }
+            }
+            .ActiveDropBox{
+                display: none;
+                width: 100%;
+                height: 180px;
+                position: absolute;
+                top: 0px;
+                left: 0px;
+                background: rgba($color: #fff, $alpha: 0.9);
+                box-shadow: rgba($color: #000000, $alpha: 0.2) 0 0 5px;
+                transform: translateY(-100%);
+                div{
+                    display: flex;
+                    justify-content: flex-start;
+                    align-items: center;
+                }
+            }
+        }
+    }
+    .OptionBox{
+        height: 200px;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: flex-start;
+    }
+    .SubmitBox {
+        width: 100%;
+        height: 100px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        .SubmitButton {
+            width: 114px;
+            height: 40px;
+            background: #4F1F7F;
+            color: #fff;
+            font-size: 18px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 7px;
+        }
+    }
+
+    .AlertBox {
+        width: 100%;
+        height: 100%;
+        position: fixed;
+        top: 0px;
+        left: 0px;
+        z-index: 2;
+        background: rgba($color: #000, $alpha: 0.4);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        .Alert {
+            width: 855px;
+            height: 205px;
+            background: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 30px;
+            color: #4F1F7F;
+            font-weight: bold;
+            position: relative;
+            .ReturnBack{
+                width: 35px;
+                height: 35px;
+                position: absolute;
+                top: 11px;
+                right: 14px;
+                img{
+                    width: 100%;
+                }
+            }
+            .Score{
+                width: 100px;
+                height: 30px;
+                margin: 0 10px;
+                box-shadow: #4F1F7F 0 2px 0 0;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+        }
+    }
+}
+.ButtonBox{
+    flex-shrink: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .OptionButton{
+        width: 218px;
+        height: 33px;
+        background: rgba($color: #4F1F7F, $alpha: 0.3);
+        border-radius: 7px;
+        margin: 2.5px 0px;
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        color: #4F1F7F;
+        font-size: 18px;
+        font-weight: bold;
+    }
+    .resultButton{
+        text-indent: 30px;
+    }
+}

@@ -1,0 +1,81 @@
+.AnswerBox {
+    width: 90%;
+    margin: 0 auto;
+    // height: 300px;
+    background: #f9f9f9;
+
+    .RowTextBox {
+        font-size: 18px;
+        color: #4F1F7F;
+        margin: 10px 0px;
+    }
+
+    .BoldFont {
+        font-weight: bold;
+    }
+
+    .SubmitBox {
+        width: 100%;
+        height: 100px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        .SubmitButton {
+            width: 114px;
+            height: 40px;
+            background: #4F1F7F;
+            color: #fff;
+            font-size: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 7px;
+        }
+    }
+
+    .AlertBox {
+        width: 100%;
+        height: 100%;
+        position: fixed;
+        top: 0px;
+        left: 0px;
+        z-index: 2;
+        background: rgba($color: #000, $alpha: 0.4);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        .Alert {
+            width: 855px;
+            height: 205px;
+            background: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 30px;
+            color: #4F1F7F;
+            font-weight: bold;
+            position: relative;
+            .ReturnBack{
+                width: 35px;
+                height: 35px;
+                position: absolute;
+                top: 11px;
+                right: 14px;
+                img{
+                    width: 100%;
+                }
+            }
+            .Score{
+                width: 100px;
+                height: 30px;
+                margin: 0 10px;
+                box-shadow: #4F1F7F 0 2px 0 0;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+        }
+    }
+}
