@@ -6,7 +6,8 @@ export class RowQuestionBox extends Component {
     super(props);
     this.state = {
       value: [],
-      selected: null
+      selected: null,
+      color:'#fff',
     };
     this.refreshProps = this.refreshProps.bind(this);
     this.createValue = this.createValue.bind(this);
@@ -22,6 +23,9 @@ export class RowQuestionBox extends Component {
     this.state.value =
       this.props.value != undefined ? props.value : this.state.value;
     this.state.selected = props.selected!=undefined?props.selected:this.state.selected;
+    this.state.color = props.color!=undefined?props.color:this.state.color;
+
+    
     this.setState(this.state);
   }
   createValue() {
@@ -37,7 +41,8 @@ export class RowQuestionBox extends Component {
             cont.state.selected == index ? style.activAnswer : ""
           ].join(" ")}
           style={{
-            minWidth: "calc(" + 100 / cont.state.value.length + "%" + " - 40px)"
+            minWidth: "calc(" + 100 / cont.state.value.length + "%" + " - 40px)",
+            color:cont.state.color,
           }}>
           {itemBase}
         </div>

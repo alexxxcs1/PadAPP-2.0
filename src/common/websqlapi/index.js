@@ -37,7 +37,7 @@ const webapi = {
         DBOpenRequest.onupgradeneeded = function (event) {
             // 通常对主键，字段等进行重定义，具体参见demo
             var db = event.target.result;
-            
+
             // 定义存储对象的数据项
 
             //收藏表
@@ -48,6 +48,8 @@ const webapi = {
             Collection.createIndex('id', 'id', {
                 unique: true
             });
+            Collection.createIndex('route', 'route');
+            Collection.createIndex('value', 'value');
 
             //内容表
             let DetialData = db.createObjectStore('DetialData', {
@@ -129,8 +131,7 @@ const webapi = {
             TabGroupData.add({
                 id: 3,
                 title: '哮喘控制的调查问卷',
-                tablist: [
-                    {
+                tablist: [{
                         id: '6-1',
                         value: 'ACT'
                     },
@@ -385,6 +386,42 @@ const webapi = {
                         callback(result);
                     }
                 }
+            };
+    },
+    getCollection(callback) {
+        let result = [];
+        let DBOpenRequest = window.indexedDB.open(dbName, dbVersion);
+        // 数据库打开成功后
+        let self = this;
+        DBOpenRequest.onsuccess =
+            function (event) {
+                // 存储数据结果
+                let db = DBOpenRequest.result;
+                // 做其他事情...
+                let objectStore = db.transaction('Collection').objectStore('Collection');
+                objectStore.openCursor().onsuccess = function (event) {
+                    let cursor = event.target.result;
+                    if (cursor) {
+                        result.push(cursor.value)
+                        cursor.continue();
+                    } else {
+                        callback(result);
+                    }
+                }
+            };
+    },
+    savetoCollection(json, callback) {
+        let DBOpenRequest = window.indexedDB.open(dbName, dbVersion);
+        // 数据库打开成功后
+        let self = this;
+        DBOpenRequest.onsuccess =
+            function (event) {
+                // 存储数据结果
+                let db = DBOpenRequest.result;
+                // 做其他事情...
+                let Collection = db.transaction('Collection', 'readwrite').objectStore('Collection');
+                Collection.add(json);
+                callback();
             };
     }
 }

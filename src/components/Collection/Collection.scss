@@ -75,11 +75,69 @@
             height: 421px;
             overflow-x: hidden;
             overflow-y: auto;
+            .EmptyTips{
+                width: 100%;
+                height: 100%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                color: rgba($color: #501F7F, $alpha: 0.6)
+            }
             .CollectionImageBox {
                 width: 267px;
                 height: 200px;
                 background: #501F7F;
-                margin: 5px auto;
+                margin: 5px;
+                overflow: hidden;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                position: relative;
+
+                .StatusBox {
+                    position: absolute;
+                    bottom: 0px;
+                    right: 0px;
+                    width: 0px;
+                    height: 0px;
+                    border-top: transparent solid 26px;
+                    border-left: transparent solid 26px;
+
+                    border-bottom: #BC96C0 solid 26px;
+                    border-right: #BC96C0 solid 26px;
+
+
+                }
+
+                .ActStatus {
+                    &::after {
+                        content: '';
+                        position: absolute;
+                        bottom: -13px;
+                        left: -2px;
+                        width: 11.8px;
+                        height: 4.29px;
+                        background: #fff;
+                        transform: rotate(45deg);
+                    }
+
+                    &::before {
+                        content: '';
+                        position: absolute;
+                        bottom: -10px;
+                        left: 3px;
+                        width: 21.4px;
+                        height: 4.2px;
+                        background: #fff;
+                        transform: rotate(-45deg);
+                    }
+                }
+
+                img {
+                    width: 100%;
+                    height: 100%;
+                    opacity: 0.9;
+                }
             }
         }
 

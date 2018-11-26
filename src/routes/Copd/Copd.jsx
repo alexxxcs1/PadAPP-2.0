@@ -14,9 +14,10 @@ export class Copd extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      kvover:false,
+      kvover: false
     };
     this.refreshProps = this.refreshProps.bind(this);
+    this.getScreenshotsBody = this.getScreenshotsBody.bind(this);
   }
   componentWillReceiveProps(nextprops) {
     this.refreshProps(nextprops);
@@ -24,8 +25,16 @@ export class Copd extends Component {
   componentDidMount() {
     this.refreshProps(this.props);
   }
+  getChildContext() {
+    return {
+      getScreenshotsBody:this.getScreenshotsBody,
+    };
+  }
+  getScreenshotsBody(){
+    return this.refs.ContentBox;
+  }
   refreshProps(props) {
-    this.refs.kv.addEventListener("animationstart", ()=>{
+    this.refs.kv.addEventListener("animationstart", () => {
       this.state.kvover = true;
       this.setState(this.state);
     });
@@ -34,10 +43,10 @@ export class Copd extends Component {
     return (
       <div className={style.CopdBox}>
         <TopBanner />
-        <div className={style.ContentBox}>
-          <div className={style.ContentKV} ref={'kv'} key={'copdkv'}>
-            <img src={contentkv} alt="" />
-          </div>
+        <div className={style.ContentKV} ref={"kv"} key={"copdkv"}>
+          <img src={contentkv} alt="" />
+        </div>
+        <div className={style.ContentBox} ref={'ContentBox'}>
           <Switch>
             <Route path="/copd/list/:catalog" component={CatalogList} />
             <Route path="/copd/detial/:catalog/:section" component={Detial} />
@@ -45,12 +54,12 @@ export class Copd extends Component {
             <Redirect from="/copd" to="/copd/list/0" />
           </Switch>
         </div>
-        <BotBanner inverse={this.state.kvover?true:false}/>
+        <BotBanner inverse={this.state.kvover ? true : false} />
       </div>
     );
   }
 }
-Copd.contextTypes = {
-  DB: PropTypes.func,
+Copd.childContextTypes = {
+  getScreenshotsBody:PropTypes.func
 };
 export default Copd;

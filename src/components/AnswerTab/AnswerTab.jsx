@@ -1,8 +1,12 @@
 import React, { Component } from "react";
 import style from "./AnswerTab.scss";
 import websqlapi from "common/websqlapi";
-import AsthmaAnswerACQ from './AnswerComponents/AsthmaAnswerACQ'
-import AsthmaAnswerAQLQ from './AnswerComponents/AsthmaAnswerAQLQ'
+import {
+  AsthmaAnswerACT,
+  AsthmaAnswerACQ,
+  AsthmaAnswerAQLQ,
+  AsthmaAnswerATAQ
+} from "./AnswerComponents/";
 
 export class AnswerTab extends Component {
   constructor(props) {
@@ -18,6 +22,7 @@ export class AnswerTab extends Component {
     this.refreshProps = this.refreshProps.bind(this);
     this.createTabList = this.createTabList.bind(this);
     this.handleJumpurl = this.handleJumpurl.bind(this);
+    this.switchAnswerTab = this.switchAnswerTab.bind(this);
   }
   componentWillReceiveProps(nextprops) {
     this.refreshProps(nextprops);
@@ -34,6 +39,8 @@ export class AnswerTab extends Component {
     this.state.tabid = props.tabgroup != undefined ? props.tabgroup : null;
     this.state.url = props.url != undefined ? props.url : null;
     this.getTablist();
+    console.log(this.state);
+
     this.setState(this.state);
   }
   getTablist() {
@@ -67,13 +74,28 @@ export class AnswerTab extends Component {
     this.props.handleroute(detialid);
     // window.location.pathname = '/#' +'/'+ window.location.hash.split("/")[1]+'/'+window.location.hash.split("/")[2]+'/'+detialid;
   }
+  switchAnswerTab() {
+    if (this.state.ContentData.length == 0) return;
+    switch (this.state.ContentData[0].id) {
+      case "asthma6-1":
+        return <AsthmaAnswerACT />;
+      case "asthma6-2":
+        return <AsthmaAnswerACQ />;
+      case "asthma6-3":
+        return <AsthmaAnswerAQLQ />;
+      case "asthma6-4":
+        return <AsthmaAnswerATAQ />;
+      default:
+        break;
+    }
+  }
   render() {
     return (
       <div className={style.TabNavBox}>
         <div className={style.TitleBox}>{this.state.Title}</div>
         <div className={style.NavButtonBox}>{this.createTabList()}</div>
         <div className={style.NavContent}>
-            <AsthmaAnswerAQLQ />
+          {this.switchAnswerTab()}
         </div>
       </div>
     );

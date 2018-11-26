@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import style from "./TopBanner.scss";
 import PropTypes from "prop-types";
 import IconBox from "components/IconBox";
+import websqlapi from 'common/websqlapi'
+import html2canvas from 'html2canvas'
 const req = require.context("./img", true, /^\.\/.*\.(?:png|jpg|gif|bmp)$/); //引入所有图片
 const reqlib = {};
 req.keys().map((currentValue, index, arr) => {
@@ -16,7 +18,6 @@ export class TopBanner extends Component {
     super(props);
     this.state = {
       db:null,
-      saved:false,
     };
     this.refreshProps = this.refreshProps.bind(this);
     this.SaveToCollection = this.SaveToCollection.bind(this);
@@ -29,12 +30,16 @@ export class TopBanner extends Component {
     this.refreshProps(this.props);
   }
   refreshProps(props) {
-
   }
   SaveToCollection(){
+    html2canvas(this.context.getScreenshotsBody()).then(canvas => {
+      websqlapi.savetoCollection({id:new Date().getTime(),route:window.location.hash,value:canvas.toDataURL("image/jpg")},()=>{
+        alert('收藏成功');
+      });
+    });
   }
   GotoCollection(){
-    window.location.hash = window.location.hash.split('/')[0] + '/' + window.location.hash.split('/')[1] + '/collection'
+    window.location.hash = window.location.hash.split('/')[0] + '/' + window.location.hash.split('/')[1] + '/collection';
   }
   render() {
     return (
@@ -54,6 +59,6 @@ export class TopBanner extends Component {
   }
 }
 TopBanner.contextTypes = {
-  DB: PropTypes.func,
+  getScreenshotsBody: PropTypes.func,
 };
 export default TopBanner;
