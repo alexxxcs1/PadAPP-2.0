@@ -32,7 +32,9 @@ export class TopBanner extends Component {
   refreshProps(props) {
   }
   SaveToCollection(){
-    html2canvas(this.context.getScreenshotsBody()).then(canvas => {
+    html2canvas(this.context.getScreenshotsBody(),{
+      scale:1,
+    }).then(canvas => {
       websqlapi.savetoCollection({id:new Date().getTime(),route:window.location.hash,value:canvas.toDataURL("image/jpg")},()=>{
         alert('收藏成功');
       });

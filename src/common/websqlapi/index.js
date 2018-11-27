@@ -389,40 +389,56 @@ const webapi = {
             };
     },
     getCollection(callback) {
-        let result = [];
-        let DBOpenRequest = window.indexedDB.open(dbName, dbVersion);
-        // 数据库打开成功后
-        let self = this;
-        DBOpenRequest.onsuccess =
-            function (event) {
-                // 存储数据结果
-                let db = DBOpenRequest.result;
-                // 做其他事情...
-                let objectStore = db.transaction('Collection').objectStore('Collection');
-                objectStore.openCursor().onsuccess = function (event) {
-                    let cursor = event.target.result;
-                    if (cursor) {
-                        result.push(cursor.value)
-                        cursor.continue();
-                    } else {
-                        callback(result);
-                    }
-                }
-            };
+        if (!window.localStorage.Collection) {
+            window.localStorage.Collection = JSON.stringify([]); 
+        }else{
+            let data = JSON.parse(window.localStorage.Collection);
+            callback(data);
+            
+        }
+        // let result = [];
+        // let DBOpenRequest = window.indexedDB.open(dbName, dbVersion);
+        // // 数据库打开成功后
+        // let self = this;
+        // DBOpenRequest.onsuccess =
+        //     function (event) {
+        //         // 存储数据结果
+        //         let db = DBOpenRequest.result;
+        //         // 做其他事情...
+        //         let objectStore = db.transaction('Collection').objectStore('Collection');
+        //         objectStore.openCursor().onsuccess = function (event) {
+        //             let cursor = event.target.result;
+        //             if (cursor) {
+        //                 result.push(cursor.value)
+        //                 cursor.continue();
+        //             } else {
+        //                 callback(result);
+        //             }
+        //         }
+        //     };
     },
     savetoCollection(json, callback) {
-        let DBOpenRequest = window.indexedDB.open(dbName, dbVersion);
-        // 数据库打开成功后
-        let self = this;
-        DBOpenRequest.onsuccess =
-            function (event) {
-                // 存储数据结果
-                let db = DBOpenRequest.result;
-                // 做其他事情...
-                let Collection = db.transaction('Collection', 'readwrite').objectStore('Collection');
-                Collection.add(json);
-                callback();
-            };
+        if (!window.localStorage.Collection) {
+            let firstarray = [json];
+            window.localStorage.Collection = JSON.stringify(firstarray); 
+        }else{
+            let data = JSON.parse(window.localStorage.Collection);
+            data.push(json);
+            window.localStorage.Collection = JSON.stringify(data);
+            callback();
+        }
+        // let DBOpenRequest = window.indexedDB.open(dbName, dbVersion);
+        // // 数据库打开成功后
+        // let self = this;
+        // DBOpenRequest.onsuccess =
+        //     function (event) {
+        //         // 存储数据结果
+        //         let db = DBOpenRequest.result;
+        //         // 做其他事情...
+        //         let Collection = db.transaction('Collection', 'readwrite').objectStore('Collection');
+        //         Collection.add(json);
+        //         callback();
+        //     };
     }
 }
 export default webapi;
