@@ -73,7 +73,14 @@ export class TabNav extends Component {
   render() {
     return (
       <div className={style.TabNavBox}>
-        <div className={style.TitleBox}>{this.state.Title}</div>
+        <div className={style.TitleBox}>
+          <span>
+            {this.state.Title != null ? this.state.Title.split("|")[0] : ""}
+          </span>
+          <span>
+            {this.state.Title != null ? this.state.Title.split("|")[1] : ""}
+          </span>{" "}
+        </div>
         <div className={style.NavButtonBox}>{this.createTabList()}</div>
         <div className={style.NavContent}>{this.createTabContent()}</div>
       </div>

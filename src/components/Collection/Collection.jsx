@@ -30,6 +30,9 @@ export class Collection extends Component {
     this.handleSelected = this.handleSelected.bind(this);
     this.HandleSelectedtoCanvas = this.HandleSelectedtoCanvas.bind(this);
     this.CustomRoute = this.CustomRoute.bind(this);
+    this.HandlecustomRoute = this.HandlecustomRoute.bind(this);
+    this.uploadimg = this.uploadimg.bind(this);
+    this.fileonChange = this.fileonChange.bind(this);
   }
   componentWillReceiveProps(nextprops) {
     this.refreshProps(nextprops);
@@ -37,6 +40,7 @@ export class Collection extends Component {
   componentDidMount() {
     this.refreshProps(this.props);
     this.getCollectionList();
+    websqlapi.setHistory({href:window.location.hash,time:new Date().getTime()});
   }
   refreshProps(props) {}
   HistoryBack() {
@@ -95,6 +99,36 @@ export class Collection extends Component {
     }
     this.setState(this.state);
   }
+  HandlecustomRoute(index){
+    this.state.customRoute = index;
+    this.setState(this.state);
+  }
+  uploadimg(){
+      this.refs.uploadfile.click();
+  }
+  fileonChange(e){
+    let self = this;
+    let file = e.target.files[0];
+    if (file.size / 1024 > 5 * 1024) {
+      alert("图片过大，请选择5M以内的图片上传");
+    } else {
+      e.target.value = "";
+      //判断类型是不是图片
+      if (!/image\/\w+/.test(file.type)) {
+        alert("请确保文件为图像类型");
+        return false;
+      }
+      var reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = function(e) {
+        let newcoll = {id:new Date().getTime(),route:window.location.hash,value:this.result};
+        websqlapi.savetoCollection(newcoll,()=>{
+          self.state.CollectionList.push(newcoll);
+          self.setState(self.state);
+        });
+      };
+    }
+  }
   CustomRoute(){
     switch (this.state.customRoute) {
       case 0:
@@ -104,9 +138,10 @@ export class Collection extends Component {
               *APP更新时，IGSK会清空收藏内容，请及时备份至iPad本地
             </div>
             <div className={style.HandleButtonBox}>
-              <img src={reqlib.ok} alt="" />
-              <img src={reqlib.upload} alt="" />
+              {/* <img src={reqlib.ok} alt="" /> */}
+              <img src={reqlib.upload} onClick={this.uploadimg} alt="" />
               <img src={reqlib.returnback} onClick={this.HistoryBack} />
+              <input style={{display:'none'}} type="file" accept={'image/*'} ref={'uploadfile'} onChange={this.fileonChange}/>
             </div>
           </div>,
           <div className={style.CollectionDetialBox}>
@@ -130,7 +165,7 @@ export class Collection extends Component {
           </div>
         ]
       case 1:
-        return <CanvasBox imglib={this.state.canvasdata}/>
+        return <CanvasBox imglib={this.state.canvasdata} handleroute={this.HandlecustomRoute.bind(this,0)}/>
       default:
         break;
     }

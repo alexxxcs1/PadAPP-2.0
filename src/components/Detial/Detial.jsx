@@ -30,6 +30,7 @@ export class Detial extends Component {
   }
   componentDidMount() {
     this.refreshProps(this.props);
+    websqlapi.setHistory({href:window.location.hash,time:new Date().getTime()});
   }
   refreshProps(props) {
     this.state.page = props.match.url.split("/")[1];
@@ -37,6 +38,7 @@ export class Detial extends Component {
     this.state.ContentID = props.match.params.section;
     this.setState(this.state);
     this.getDetial();
+    
   }
   getDetial() {
     if (this.state.ContentID == null) return;

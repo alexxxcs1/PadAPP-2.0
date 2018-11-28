@@ -1,0 +1,21 @@
+.AnswerBox {
+    width: 90%;
+    margin: 0 auto;
+    height: 300px;
+    // background: #333;
+
+    .CheckListBox{
+        width: 100%;
+
+        .TableTitle{
+            width: 100%;
+            height: 33px;
+            background: #501F7F;
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 14px;
+        }
+    }
+}

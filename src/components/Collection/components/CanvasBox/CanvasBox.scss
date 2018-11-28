@@ -12,14 +12,24 @@
         right: 0px;
         z-index: 999;
         pointer-events: none;
-
+        .returnback{
+            width: 39px;
+            height: 39px;
+            position: absolute;
+            pointer-events: all;
+            right: 15px;
+            top: 20px;
+            img{
+                width: 100%;
+            }
+        }
         .HandlePosButton {
             width: 30px;
             height: 30px;
             position: absolute;
             pointer-events: all;
-            top: 50px;
-            right: 50px;
+            top: 110px;
+            right: 15px;
             background: rgba($color: #501F7F, $alpha: 0.3);
             border-radius: 50%;
             display: flex;
@@ -36,8 +46,8 @@
             height: 30px;
             position: absolute;
             pointer-events: all;
-            top: 100px;
-            right: 50px;
+            top: 160px;
+            right: 15px;
             background: rgba($color: #501F7F, $alpha: 0.3);
             display: flex;
             justify-content: center;
@@ -53,8 +63,8 @@
             height: 30px;
             position: absolute;
             pointer-events: all;
-            top: 150px;
-            right: 50px;
+            top: 190px;
+            right: 15px;
             background: rgba($color: #501F7F, $alpha: 0.3);
             display: flex;
             justify-content: center;

@@ -5,6 +5,9 @@ import BotBanner from "components/BotBanner";
 import Detial from "components/Detial";
 import Collection from "components/Collection";
 import CatalogList from "components/CatalogList";
+import SearchBox from "components/SearchBox";
+import HistoryBox from 'components/HistoryBox'
+
 import PropTypes from "prop-types";
 import { HashRouter, Route, Switch, Redirect } from "react-router-dom";
 
@@ -51,6 +54,8 @@ export class Copd extends Component {
             <Route path="/copd/list/:catalog" component={CatalogList} />
             <Route path="/copd/detial/:catalog/:section" component={Detial} />
             <Route path="/copd/collection" component={Collection} />
+            <Route path="/copd/search" component={SearchBox} />
+            <Route path="/copd/history" component={HistoryBox} />
             <Redirect from="/copd" to="/copd/list/0" />
           </Switch>
         </div>

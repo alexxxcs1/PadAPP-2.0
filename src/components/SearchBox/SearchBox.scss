@@ -1,0 +1,115 @@
+.SearchBox {
+  width: 100%;
+  height: 100%;
+  // background: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  .ContentBox {
+    width: 90%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: #fff;
+    border-radius: 7px;
+    position: relative;
+    .returnback {
+      width: 39px;
+      height: 39px;
+      position: absolute;
+      top: 20px;
+      right: 8px;
+      img {
+        width: 100%;
+      }
+    }
+    .SearchInputBox {
+      width: 720px;
+      height: 54px;
+      background: #fff;
+      box-shadow: #501f7f 0 0 0 1.5px, #501f7f 0 0 0 1.5px inset;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      .SearchIcon {
+        flex-shrink: 0;
+        width: 50px;
+        height: 100%;
+        // background: #666;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        img {
+          width: 31px;
+        }
+      }
+
+      .SearchInput {
+        flex-grow: 1;
+        height: 100%;
+        .SInput {
+          display: block;
+          width: 100%;
+          height: 100%;
+          background: transparent;
+          outline: none;
+          font-size: 24px;
+          font-weight: bold;
+          &::placeholder {
+            color: rgba($color: #501f7f, $alpha: 0.5);
+            font-weight: normal;
+            font-size: 20px;
+          }
+        }
+      }
+
+      .SearchButton {
+        flex-shrink: 0;
+        width: 83px;
+        height: 100%;
+        font-size: 24px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: #501f7f;
+        position: relative;
+        &::before {
+          position: absolute;
+          content: "";
+          left: 0px;
+          top: 50%;
+          transform: translateY(-50%);
+          width: 2px;
+          height: 32px;
+          background: #501f7f;
+        }
+      }
+    }
+    .SearchResultBox {
+      width: 720px;
+      height: 360px;
+      // background: #333;
+      margin-top: 16px;
+      overflow: auto;
+
+      .SearchResultRow {
+        width: 100%;
+        height: 100px;
+        min-height: 100px;
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        font-size: 18px;
+        color: #501f7f;
+        // background: #999;
+        box-shadow: #e5e5e5 0 1px 0 0;
+      }
+    }
+  }
+}

@@ -6,6 +6,7 @@ import poscursor from "./img/poscursor.png";
 import pen from "./img/pen.png";
 import scaleup from "./img/scaleup.png";
 import scaledown from "./img/scaledown.png";
+import returnback from './img/returnback.png'
 
 const req = require.context(
   "./img/handlebutton",
@@ -71,12 +72,14 @@ export class CanvasBox extends Component {
     this.createColorHandleIcon = this.createColorHandleIcon.bind(this);
     this.HandleLinewidth = this.HandleLinewidth.bind(this);
     this.HandleLineColor = this.HandleLineColor.bind(this);
+    this.HandleReturnBack = this.HandleReturnBack.bind(this);
   }
   componentWillReceiveProps(nextprops) {
     this.refreshProps(nextprops);
   }
   componentDidMount() {
     this.refreshProps(this.props);
+
     this.state.scene = new Scene(this.refs.canvas, {
       viewport: ["auto", "auto"],
       resolution: [
@@ -84,15 +87,18 @@ export class CanvasBox extends Component {
         552 * (this.props.imglib.length + 1)
       ]
     });
+    
     //收藏图片层
     this.state.layer_sprite = this.state.scene.layer("img", {
       zIndex: 1
     });
     this.renderSpriteImg();
+
     //原生绘画层
     this.state.layer = this.state.scene.layer("pen", {
       zIndex: 3
     });
+
     //原生绘图Sprite对象层
     this.state.pen_layer = this.state.scene.layer("pen_sprite", {
       zIndex: 2
@@ -129,6 +135,8 @@ export class CanvasBox extends Component {
       case 0:
         this.state._deviationPos[0] = evt.layerX - this.state.touchStartPos[0];
         this.state._deviationPos[1] = evt.layerY - this.state.touchStartPos[1];
+
+        
         break;
       case 1:
         this.state.emptyCanvas = false;
@@ -162,8 +170,9 @@ export class CanvasBox extends Component {
         this.state.deviationPos[1] += this.state._deviationPos[1];
         this.state._deviationPos[0] = 0;
         this.state._deviationPos[1] = 0;
-        console.log(this.state.deviationPos);
-
+        
+        this.state.deviationPos[0] = Math.max(Math.min(this.state.deviationPos[0],this.state.scene.resolution[0]/2),-this.state.scene.resolution[0]/2);
+        this.state.deviationPos[1] = Math.max(Math.min(this.state.deviationPos[1],this.state.scene.resolution[1]/2),-this.state.scene.resolution[1]/2);
         break;
       case 1:
         this.state.layer.context.closePath();
@@ -295,7 +304,16 @@ export class CanvasBox extends Component {
     if (this.state.linewidthArray.length == 0) return;
     var cont = this;
     var itemNodes = this.state.linewidthArray.map(function(itemBase, index) {
-      return <div className={[style.handleicon,cont.state.penstyle.linewidth == itemBase ? style.actbutton:''].join(' ')} onClick={cont.HandleLinewidth.bind(cont,itemBase)}>{itemBase}</div>;
+      return (
+        <div
+          className={[
+            style.handleicon,
+            cont.state.penstyle.linewidth == itemBase ? style.actbutton : ""
+          ].join(" ")}
+          onClick={cont.HandleLinewidth.bind(cont, itemBase)}>
+          {itemBase}
+        </div>
+      );
     });
     return itemNodes;
   }
@@ -304,7 +322,14 @@ export class CanvasBox extends Component {
     var cont = this;
     var itemNodes = this.state.colorArray.map(function(itemBase, index) {
       return (
-        <div className={[style.handleicon,cont.state.penstyle.color == itemBase ? style.actbutton:''].join(' ')} style={{ background: itemBase }} onClick={cont.HandleLineColor.bind(cont,itemBase)} />
+        <div
+          className={[
+            style.handleicon,
+            cont.state.penstyle.color == itemBase ? style.actbutton : ""
+          ].join(" ")}
+          style={{ background: itemBase }}
+          onClick={cont.HandleLineColor.bind(cont, itemBase)}
+        />
       );
     });
     return itemNodes;
@@ -317,10 +342,16 @@ export class CanvasBox extends Component {
     this.state.penstyle.color = color;
     this.setState(this.state);
   }
+  HandleReturnBack(){
+    this.props.handleroute();
+  }
   render() {
     return (
       <div className={style.CanvasBox} ref={"outcon"}>
         <div className={style.HandleGroup}>
+          <div className={style.returnback} onClick={this.HandleReturnBack}>
+            <img src={returnback} alt=""/>
+          </div>
           <div
             className={style.HandlePosButton}
             onClick={this.HandleCursorStyle.bind(this, 0)}>

@@ -5,6 +5,8 @@ import BotBanner from "components/BotBanner";
 import Detial from "components/Detial";
 import CatalogList from "components/CatalogList";
 import Collection from "components/Collection";
+import SearchBox from "components/SearchBox";
+import HistoryBox from "components/HistoryBox";
 import { HashRouter, Route, Switch, Redirect } from "react-router-dom";
 import PropTypes from "prop-types";
 
@@ -52,6 +54,8 @@ export class Asthma extends Component {
             <Route path="/asthma/list/:catalog" component={CatalogList} />
             <Route path="/asthma/detial/:catalog/:section" component={Detial} />
             <Route path="/asthma/collection" component={Collection} />
+            <Route path="/asthma/search" component={SearchBox} />
+            <Route path="/asthma/history" component={HistoryBox} />
             <Redirect from="/asthma" to="/asthma/list/0" />
           </Switch>
         </div>

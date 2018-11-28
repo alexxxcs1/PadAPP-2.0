@@ -349,9 +349,81 @@ const listdata = {
                     title: "挑战9: 2018 GOLD中，对绝大部分 患者推荐使用LAMA类药类（如B、 C、D），我们临床上就会考虑将 噻托溴铵作为大多数患者的基础治疗。 如果患者疗效不佳或还有较高的急性 加重风险，我们才会考虑选择 添加舒利迭®。",
                     to: 9
                 },
-                
+
             ]
         },
-    ]
+    ],
+    gso: [{
+            catalog: "第一章",
+            value: "GSO销售拜访模型",
+            list: [{
+                    title: "1.	定义GSO",
+                    to: 1
+                },
+                {
+                    title: "2.	GSO销售拜访模型",
+                    to: 2
+                },
+                {
+                    title: "3.	GSO步骤和目的",
+                    to: 3
+                },
+                {
+                    title: "4.	GSO的3大驱动因素",
+                    to: 4
+                },
+            ]
+        },
+        {
+            catalog: "第二章",
+            value: "Check List",
+            list: [{
+                    title: "1.	GSO演练观察项目",
+                    to: 1
+                },
+                {
+                    title: "2.	GSO Check List Demo",
+                    to: 2
+                },
+                {
+                    title: "3.	GSO Check List",
+                    to: 3
+                }
+            ]
+        },
+        {
+            catalog: "第三章",
+            value: "GSO舒利迭标准拜访案例",
+            list: [{
+                    title: "1.	哮喘GSO主流挑战纲要+案例",
+                    to: 1
+                },
+                {
+                    title: "-较轻未控制",
+                    to: 1
+                },
+                {
+                    title: "-较重未控制",
+                    to: 2
+                },
+                {
+                    title: "-持续性咳嗽未控制",
+                    to: 3
+                },
+                {
+                    title: "2.	慢阻肺GSO主流挑战纲要+案例",
+                    to: 4
+                },
+                {
+                    title: "-有多次急性加重史或者一次急性加重住院史",
+                    to: 4
+                },
+                {
+                    title: "-有过急性加重史，但主诉只强调症状多",
+                    to: 5
+                },
+            ]
+        }
+    ],
 }
 export default listdata;

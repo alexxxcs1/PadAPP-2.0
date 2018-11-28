@@ -15,7 +15,7 @@
         flex-shrink: 0;
         min-width: 35%;
         display: flex;
-        justify-content: center;
+        justify-content: flex-start;
         align-items: center;
         flex-direction: column;
         $bgcolor: #fff;
@@ -24,38 +24,41 @@
             height: 73px;
             margin: 10px 0px;
 
-            background: $bgcolor;
+            background:#A387B8;
             position: relative;
             display: flex;
             justify-content: center;
             align-items: center;
             color: #501F7F;
+            font-weight: bold;
             .Catalog{
                 width: 73px;
                 height: 100%;
                 flex-shrink: 0;
-                // background: #999;
-
                 display: flex;
                 justify-content: center;
                 align-items: center;
             }
             .Value{
                 flex-grow: 1;
-                
             }
         }
 
         .ActButton {
+            background: #fff;
             &::after {
                 position: absolute;
                 content: '';
-                width: 23px;
-                height: 23px;
+                width: 0px;
+                height: 0px;
                 right: 0px;
                 top: 50%;
-                transform: translateX(50%) translateY(-50%) rotate(45deg);
-                background: $bgcolor;
+                border-right: transparent solid 11px;
+                border-top: transparent solid 11px;
+                border-bottom: transparent solid 11px;
+                border-left: #fff solid 11px;
+
+                transform: translateX(100%) translateY(-50%);
             }
         }
     }

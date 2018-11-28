@@ -26,7 +26,7 @@ export class CatalogList extends Component {
   }
   componentDidMount() {
     this.refreshProps(this.props);
-    
+    websqlapi.setHistory({href:window.location.hash,time:new Date().getTime()});
   }
   refreshProps(props) {
     this.state.ListIndex =

@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 // import style from  './App.scss';
 import Asthma from "./Asthma";
 import Copd from "./Copd";
+import Gso from "./Gso";
 import Home from "routes/Home";
 import websqlapi from 'common/websqlapi'
 
@@ -33,7 +34,7 @@ class App extends Component {
             <Switch>
               <Route path="/asthma" component={Asthma} />
               <Route path="/copd" component={Copd} />
-              <Route path="/gso" component={Asthma} />
+              <Route path="/gso" component={Gso} />
               <Route path="/study" component={Asthma} />
               <Route path="/reference" component={Asthma} />
 

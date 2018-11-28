@@ -22,6 +22,8 @@ export class TopBanner extends Component {
     this.refreshProps = this.refreshProps.bind(this);
     this.SaveToCollection = this.SaveToCollection.bind(this);
     this.GotoCollection = this.GotoCollection.bind(this);
+    this.GotoSearch = this.GotoSearch.bind(this);
+    this.GotoHistory = this.GotoHistory.bind(this);
   }
   componentWillReceiveProps(nextprops) {
     this.refreshProps(nextprops);
@@ -43,6 +45,12 @@ export class TopBanner extends Component {
   GotoCollection(){
     window.location.hash = window.location.hash.split('/')[0] + '/' + window.location.hash.split('/')[1] + '/collection';
   }
+  GotoSearch(){
+    window.location.hash = window.location.hash.split('/')[0] + '/' + window.location.hash.split('/')[1] + '/search';
+  }
+  GotoHistory(){
+    window.location.hash = window.location.hash.split('/')[0] + '/' + window.location.hash.split('/')[1] + '/history';
+  }
   render() {
     return (
       <div className={style.TopBannerBox}>
@@ -52,9 +60,9 @@ export class TopBanner extends Component {
         <div className={style.RightBox}>
           <IconBox inverse={true} img={reqlib.save} onClick={this.SaveToCollection} />
           <IconBox inverse={true} img={reqlib.favorites} onClick={this.GotoCollection} />
-          <IconBox inverse={true} img={reqlib.display}  />
-          <IconBox inverse={true} img={reqlib.search}  />
-          <IconBox inverse={true} img={reqlib.history}  />
+          <IconBox inverse={true} img={reqlib.display} onClick={this.GotoCollection} />
+          <IconBox inverse={true} img={reqlib.search}  onClick={this.GotoSearch}/>
+          <IconBox inverse={true} img={reqlib.history} onClick={this.GotoHistory} />
         </div>
       </div>
     );

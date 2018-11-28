@@ -5,7 +5,8 @@ import {
   AsthmaAnswerACT,
   AsthmaAnswerACQ,
   AsthmaAnswerAQLQ,
-  AsthmaAnswerATAQ
+  AsthmaAnswerATAQ,
+  GsoAnswerCheckList
 } from "./AnswerComponents/";
 
 export class AnswerTab extends Component {
@@ -53,7 +54,7 @@ export class AnswerTab extends Component {
     });
   }
   createTabList() {
-    if (this.state.TabList.length == 0) return;
+    if (this.state.TabList.length == 0||this.state.TabList.length == 1) return;
     var cont = this;
     var itemNodes = this.state.TabList.map(function(itemBase, index) {
       return (
@@ -85,6 +86,8 @@ export class AnswerTab extends Component {
         return <AsthmaAnswerAQLQ />;
       case "asthma6-4":
         return <AsthmaAnswerATAQ />;
+      case "gso2-3":
+        return <GsoAnswerCheckList />;
       default:
         break;
     }
@@ -93,7 +96,7 @@ export class AnswerTab extends Component {
     return (
       <div className={style.TabNavBox}>
         <div className={style.TitleBox}>{this.state.Title}</div>
-        <div className={style.NavButtonBox}>{this.createTabList()}</div>
+        {(this.state.TabList.length <= 1)?'':<div className={style.NavButtonBox}>{this.createTabList()}</div>}
         <div className={style.NavContent}>
           {this.switchAnswerTab()}
         </div>
