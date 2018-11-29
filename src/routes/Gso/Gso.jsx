@@ -56,7 +56,7 @@ export class Gso extends Component {
             <Route path="/gso/collection" component={Collection} />
             <Route path="/gso/search" component={SearchBox} />
             <Route path="/gso/history" component={HistoryBox} />
-            <Redirect from="/gso" to="/copd/list/0" />
+            <Redirect from="/gso" to="/gso/list/0" />
           </Switch>
         </div>
         <BotBanner inverse={this.state.kvover ? true : false} />

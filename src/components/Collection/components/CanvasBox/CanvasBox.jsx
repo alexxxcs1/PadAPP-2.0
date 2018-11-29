@@ -6,7 +6,8 @@ import poscursor from "./img/poscursor.png";
 import pen from "./img/pen.png";
 import scaleup from "./img/scaleup.png";
 import scaledown from "./img/scaledown.png";
-import returnback from './img/returnback.png'
+import returnback from "./img/returnback.png";
+import websqlapi from "common/websqlapi";
 
 const req = require.context(
   "./img/handlebutton",
@@ -26,6 +27,7 @@ export class CanvasBox extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      resultImage: null,
       scene: null,
       layer: null,
       _layer: null,
@@ -73,6 +75,7 @@ export class CanvasBox extends Component {
     this.HandleLinewidth = this.HandleLinewidth.bind(this);
     this.HandleLineColor = this.HandleLineColor.bind(this);
     this.HandleReturnBack = this.HandleReturnBack.bind(this);
+    this.onSaveImage = this.onSaveImage.bind(this);
   }
   componentWillReceiveProps(nextprops) {
     this.refreshProps(nextprops);
@@ -87,21 +90,20 @@ export class CanvasBox extends Component {
         552 * (this.props.imglib.length + 1)
       ]
     });
-    
+
     //收藏图片层
     this.state.layer_sprite = this.state.scene.layer("img", {
       zIndex: 1
     });
     this.renderSpriteImg();
 
-    //原生绘画层
-    this.state.layer = this.state.scene.layer("pen", {
-      zIndex: 3
-    });
-
     //原生绘图Sprite对象层
     this.state.pen_layer = this.state.scene.layer("pen_sprite", {
       zIndex: 2
+    });
+    //原生绘画层
+    this.state.layer = this.state.scene.layer("pen", {
+      zIndex: 3
     });
     this.initPenGroup();
 
@@ -136,7 +138,6 @@ export class CanvasBox extends Component {
         this.state._deviationPos[0] = evt.layerX - this.state.touchStartPos[0];
         this.state._deviationPos[1] = evt.layerY - this.state.touchStartPos[1];
 
-        
         break;
       case 1:
         this.state.emptyCanvas = false;
@@ -170,9 +171,21 @@ export class CanvasBox extends Component {
         this.state.deviationPos[1] += this.state._deviationPos[1];
         this.state._deviationPos[0] = 0;
         this.state._deviationPos[1] = 0;
-        
-        this.state.deviationPos[0] = Math.max(Math.min(this.state.deviationPos[0],this.state.scene.resolution[0]/2),-this.state.scene.resolution[0]/2);
-        this.state.deviationPos[1] = Math.max(Math.min(this.state.deviationPos[1],this.state.scene.resolution[1]/2),-this.state.scene.resolution[1]/2);
+
+        // this.state.deviationPos[0] = Math.max(
+        //   Math.min(
+        //     this.state.deviationPos[0],
+        //     this.state.scene.resolution[0] / 2
+        //   ),
+        //   -this.state.scene.resolution[0] / 2
+        // );
+        // this.state.deviationPos[1] = Math.max(
+        //   Math.min(
+        //     this.state.deviationPos[1],
+        //     this.state.scene.resolution[1] / 2
+        //   ),
+        //   -this.state.scene.resolution[1] / 2
+        // );
         break;
       case 1:
         this.state.layer.context.closePath();
@@ -264,7 +277,7 @@ export class CanvasBox extends Component {
   }
   clearPencontext() {
     this.DrawtoSprite();
-    if (window.confirm("将清楚本次所有笔记！")) {
+    if (window.confirm("将清除本次所有笔记！")) {
       this.state.pen_group.clear();
     }
   }
@@ -342,15 +355,33 @@ export class CanvasBox extends Component {
     this.state.penstyle.color = color;
     this.setState(this.state);
   }
-  HandleReturnBack(){
+  HandleReturnBack() {
     this.props.handleroute();
+  }
+  onSaveImage() {
+    this.DrawtoSprite();
+    setTimeout(() => {
+      this.state.scene.snapshot().then(canvas => {
+        console.log(canvas.toDataURL("image/jpg"));
+        websqlapi.savetoCollection(
+          {
+            id: new Date().getTime(),
+            route: window.location.hash,
+            value: canvas.toDataURL("image/jpg")
+          },
+          () => {
+            alert("已存入收藏中");
+          }
+        );
+      });
+    }, 500);
   }
   render() {
     return (
       <div className={style.CanvasBox} ref={"outcon"}>
         <div className={style.HandleGroup}>
           <div className={style.returnback} onClick={this.HandleReturnBack}>
-            <img src={returnback} alt=""/>
+            <img src={returnback} alt="" />
           </div>
           <div
             className={style.HandlePosButton}
@@ -403,7 +434,7 @@ export class CanvasBox extends Component {
               <img src={handlebutton.undo} onClick={this.HandleUndo} />
             </div>
             <div className={style.PenButtonBox}>
-              <img src={handlebutton.save} alt="" />
+              <img src={handlebutton.save} onClick={this.onSaveImage} alt="" />
             </div>
           </div>
         </div>

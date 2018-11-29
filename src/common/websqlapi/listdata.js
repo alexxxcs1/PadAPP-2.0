@@ -395,7 +395,7 @@ const listdata = {
             catalog: "第三章",
             value: "GSO舒利迭标准拜访案例",
             list: [{
-                    title: "1.	哮喘GSO主流挑战纲要+案例",
+                    title: "1.	哮喘GSO拜访标准案例",
                     to: 1
                 },
                 {
@@ -411,7 +411,7 @@ const listdata = {
                     to: 3
                 },
                 {
-                    title: "2.	慢阻肺GSO主流挑战纲要+案例",
+                    title: "2.	慢阻肺GSO拜访标准案例",
                     to: 4
                 },
                 {

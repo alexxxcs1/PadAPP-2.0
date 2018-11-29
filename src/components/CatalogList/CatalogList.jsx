@@ -4,8 +4,11 @@ import { Link } from "react-router-dom";
 
 import CatalogBKG from "./img/CatalogBKG.png";
 import { api } from "common/app";
-import websqlapi from 'common/websqlapi'
-
+import websqlapi from "common/websqlapi";
+import unread from './img/unread.png'
+import readhalf from './img/readhalf.png'
+import reading from './img/reading.png'
+import readall from './img/readall.png'
 
 export class CatalogList extends Component {
   constructor(props) {
@@ -14,7 +17,7 @@ export class CatalogList extends Component {
       ListIndex: 0,
       page: null,
       apidata: [],
-      sectiondata:[],
+      sectiondata: []
     };
     this.refreshProps = this.refreshProps.bind(this);
     this.createListButton = this.createListButton.bind(this);
@@ -26,7 +29,10 @@ export class CatalogList extends Component {
   }
   componentDidMount() {
     this.refreshProps(this.props);
-    websqlapi.setHistory({href:window.location.hash,time:new Date().getTime()});
+    websqlapi.setHistory({
+      href: window.location.hash,
+      time: new Date().getTime()
+    });
   }
   refreshProps(props) {
     this.state.ListIndex =
@@ -36,19 +42,19 @@ export class CatalogList extends Component {
     this.state.page = props.match.url.split("/")[1];
     // this.state.apidata = apidata;
     this.getCatelogList();
-    
+
     this.setState(this.state);
   }
   getCatelogList() {
     let self = this;
-    websqlapi.getListInfo(this.state.page,(res)=>{
-        self.state.apidata = res;
-        self.setState(this.state);
-    })
-    websqlapi.getSectionInfo(this.state.page,this.state.ListIndex,(res)=>{
+    websqlapi.getListInfo(this.state.page, res => {
+      self.state.apidata = res;
+      self.setState(this.state);
+    });
+    websqlapi.getSectionInfo(this.state.page, this.state.ListIndex, res => {
       self.state.sectiondata = res;
       self.setState(this.state);
-    })
+    });
     // api.getCatalogList(this.state.page.toUpperCase()).then(
     //   res => {
     //     if (res.code == 200) {
@@ -75,7 +81,7 @@ export class CatalogList extends Component {
             <div className={style.Catalog}>{itemBase.catalog}</div>
             <div className={style.Value}>
               {itemBase.value.split("|")[0]} <br />
-              {itemBase.value.split("|")[1]} 
+              {itemBase.value.split("|")[1]}
             </div>
           </div>
         </Link>
@@ -87,15 +93,45 @@ export class CatalogList extends Component {
     if (this.state.sectiondata.length == 0) return;
     let data = this.state.sectiondata;
     var cont = this;
+    if (!window.localStorage.ReadRate) {
+      window.localStorage.ReadRate = JSON.stringify({});
+    }
+    let readrate = JSON.parse(window.localStorage.ReadRate);
     var itemNodes = data.map(function(itemBase, index) {
       // if (!itemBase.is_child) {
-        return (
-          <Link
-            to={"/" + cont.state.page + "/detial/"+cont.state.ListIndex+"/" + itemBase.to}
-            key={"seciton" + index}>
-            <div className={style.Section}>{itemBase.value}</div>
-          </Link>
-        );
+      return (
+        <Link
+          to={
+            "/" +
+            cont.state.page +
+            "/detial/" +
+            cont.state.ListIndex +
+            "/" +
+            itemBase.to
+          }
+          key={"seciton" + index}>
+          <div className={style.Section}>
+            {readrate[
+              cont.state.page + "-" + cont.state.ListIndex + "-" + itemBase.to
+            ] == undefined
+              ? <img src={unread} alt=""/>
+              : (readrate[
+                  cont.state.page +
+                    "-" +
+                    cont.state.ListIndex +
+                    "-" +
+                    itemBase.to
+                ]<0.5?<img src={reading} alt=""/>:readrate[
+                  cont.state.page +
+                    "-" +
+                    cont.state.ListIndex +
+                    "-" +
+                    itemBase.to
+                ]==1?<img src={readall} alt=""/>:<img src={readhalf} alt=""/>)}{" "}
+            <span>{itemBase.value}</span> 
+          </div>
+        </Link>
+      );
       // } else {
       //   return <div key={'section' + index} className={style.Section}>{itemBase.title}</div>;
       // }
@@ -105,15 +141,21 @@ export class CatalogList extends Component {
   render() {
     return (
       <div className={style.CatalogList}>
-        <div className={style.ListBox}>{this.createListButton()}</div>
-        <div className={style.SectionBox}>
-          <div className={style.CatalogSection}>
-            <img src={CatalogBKG} className={style.SectionBkg} alt="" />
-            <div className={style.SectionDetial}>
-              {this.createSectionButton()}
+        {this.state.apidata.length > 0 ? (
+          [
+            <div className={style.ListBox}>{this.createListButton()}</div>,
+            <div className={style.SectionBox}>
+              <div className={style.CatalogSection}>
+                <img src={CatalogBKG} className={style.SectionBkg} alt="" />
+                <div className={style.SectionDetial}>
+                  {this.createSectionButton()}
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
+          ]
+        ) : (
+          <div className={style.Empty}>该板块尚未开放</div>
+        )}
       </div>
     );
   }

@@ -49,6 +49,7 @@ export class Collection extends Component {
   getCollectionList() {
     websqlapi.getCollection(res => {
       this.state.CollectionList = res;
+      this.state.SelectedData = [];
       for (let z = 0; z < res.length; z++) {
         this.state.SelectedData.push(null);
       }
@@ -72,7 +73,7 @@ export class Collection extends Component {
           key={"ImageBox" + index}
           className={[style.CollectionImageBox].join(" ")}
           onClick={cont.handleSelected.bind(cont, index, itemBase.value)}>
-          <img src={itemBase.value} alt="" />
+          <img src={itemBase.value} style={{userSelect:'all'}} alt="" />
           <div
             className={[
               style.StatusBox,
@@ -100,6 +101,7 @@ export class Collection extends Component {
     this.setState(this.state);
   }
   HandlecustomRoute(index){
+    this.getCollectionList();
     this.state.customRoute = index;
     this.setState(this.state);
   }

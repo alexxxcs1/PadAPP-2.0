@@ -11,7 +11,7 @@ export class Detial extends Component {
     super(props);
     this.state = {
       page: null,
-
+      catalog: null,
       ContentID: null,
       Title: null,
       Type: null,
@@ -19,18 +19,24 @@ export class Detial extends Component {
       url: "",
       Content: []
     };
+    this.addScrollListener = this.addScrollListener.bind(this);
     this.refreshProps = this.refreshProps.bind(this);
     this.switchType = this.switchType.bind(this);
     this.createImgContent = this.createImgContent.bind(this);
     this.HandleDetialRoute = this.HandleDetialRoute.bind(this);
     this.HandleUrlRoute = this.HandleUrlRoute.bind(this);
+    this.onScroll = this.onScroll.bind(this);
   }
   componentWillReceiveProps(nextprops) {
     this.refreshProps(nextprops);
   }
   componentDidMount() {
     this.refreshProps(this.props);
-    websqlapi.setHistory({href:window.location.hash,time:new Date().getTime()});
+    this.addScrollListener();
+    websqlapi.setHistory({
+      href: window.location.hash,
+      time: new Date().getTime()
+    });
   }
   refreshProps(props) {
     this.state.page = props.match.url.split("/")[1];
@@ -38,7 +44,30 @@ export class Detial extends Component {
     this.state.ContentID = props.match.params.section;
     this.setState(this.state);
     this.getDetial();
-    
+  }
+  addScrollListener() {
+    this.refs.contentbox.addEventListener("scroll", this.onScroll);
+  }
+  onScroll() {
+    if (
+      (this.refs.contentbox.scrollTop + this.refs.contentbox.clientHeight) /
+      this.refs.contentbox.scrollHeight
+    ) {
+      let rate =
+        (this.refs.contentbox.scrollTop + this.refs.contentbox.clientHeight) /
+        this.refs.contentbox.scrollHeight;
+      websqlapi.setReadRate(
+        this.state.page + "-" + this.state.catalog + "-" + this.state.ContentID,
+        rate,
+        ()=>{
+
+        }
+      );
+    } else {
+    }
+  }
+  componentWillUnmount(){
+    this.refs.contentbox.removeEventListener('scroll',this.onScroll);
   }
   getDetial() {
     if (this.state.ContentID == null) return;
@@ -118,7 +147,7 @@ export class Detial extends Component {
   render() {
     return (
       <div className={style.DetialBox}>
-        <div className={style.ContentBox}>
+        <div className={style.ContentBox} ref={"contentbox"}>
           {this.switchType()}
           <div className={style.ReturnButton} onClick={this.HandleUrlRoute}>
             <img src={returnback} alt="" />

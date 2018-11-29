@@ -611,6 +611,23 @@ const webapi = {
     clearHistory(callback){
         window.localStorage.History = JSON.stringify([]);
         callback();
+    },
+    setReadRate(id,rate,callback){
+        if (!window.localStorage.ReadRate) {
+            let json = {};
+            json[id] = rate;
+            let firstarray = json;
+            window.localStorage.ReadRate = JSON.stringify(firstarray);
+        } else {
+            let data = JSON.parse(window.localStorage.ReadRate);
+            if (data[id]!=undefined) {
+                data[id] = data[id]<rate?rate:data[id];
+            }else{
+                data[id] = rate;
+            }
+            window.localStorage.ReadRate = JSON.stringify(data);
+            callback();
+        }
     }
 };
 export default webapi;
