@@ -4,25 +4,32 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    
+
     .ContentBox {
         width: 90%;
         height: 100%;
-        background: #fff;
-        overflow-y: auto;
-        overflow-x: hidden;
-        border-radius: 6px;
         position: relative;
-        img{
+
+        .ContentDetial {
             width: 100%;
+            height: 100%;
+            background: #fff;
+            overflow-y: auto;
+            overflow-x: hidden;
+            border-radius: 6px;
+            position: relative;
+            img {
+                width: 100%;
+            }
         }
-        .ReturnButton{
+        .ReturnButton {
             position: absolute;
             top: 19px;
             right: 13px;
             width: 39px;
             height: 39px;
-            img{
+
+            img {
                 width: 100%;
             }
         }

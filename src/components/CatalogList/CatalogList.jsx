@@ -143,8 +143,8 @@ export class CatalogList extends Component {
       <div className={style.CatalogList}>
         {this.state.apidata.length > 0 ? (
           [
-            <div className={style.ListBox}>{this.createListButton()}</div>,
-            <div className={style.SectionBox}>
+            <div key={this.state.page+'listbox'} className={style.ListBox}>{this.createListButton()}</div>,
+            <div key={this.state.page+'sectionbox'} className={style.SectionBox}>
               <div className={style.CatalogSection}>
                 <img src={CatalogBKG} className={style.SectionBkg} alt="" />
                 <div className={style.SectionDetial}>

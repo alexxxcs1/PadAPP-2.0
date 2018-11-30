@@ -6,6 +6,7 @@ import TabNav from "components/TabNav";
 import returnback from "./img/returnback.png";
 import websqlapi from "common/websqlapi";
 
+let interval;
 export class Detial extends Component {
   constructor(props) {
     super(props);
@@ -37,13 +38,26 @@ export class Detial extends Component {
       href: window.location.hash,
       time: new Date().getTime()
     });
+    
   }
   refreshProps(props) {
+    this.state.Content = [];
     this.state.page = props.match.url.split("/")[1];
     this.state.catalog = props.match.params.catalog;
     this.state.ContentID = props.match.params.section;
     this.setState(this.state);
     this.getDetial();
+    clearTimeout(interval);
+    interval = setTimeout(() => {
+      console.log(this.refs.contentbox.clientHeight,this.refs.contentbox.scrollHeight);
+      if (this.refs.contentbox.scrollHeight - this.refs.contentbox.clientHeight<50) {
+        websqlapi.setReadRate(
+          this.state.page + "-" + this.state.catalog + "-" + this.state.ContentID,
+          1,
+          () => {}
+        );
+      }
+    }, 3000);
   }
   addScrollListener() {
     this.refs.contentbox.addEventListener("scroll", this.onScroll);
@@ -59,15 +73,14 @@ export class Detial extends Component {
       websqlapi.setReadRate(
         this.state.page + "-" + this.state.catalog + "-" + this.state.ContentID,
         rate,
-        ()=>{
-
-        }
+        () => {}
       );
     } else {
     }
   }
-  componentWillUnmount(){
-    this.refs.contentbox.removeEventListener('scroll',this.onScroll);
+  componentWillUnmount() {
+    clearTimeout(interval);
+    this.refs.contentbox.removeEventListener("scroll", this.onScroll);
   }
   getDetial() {
     if (this.state.ContentID == null) return;
@@ -87,11 +100,6 @@ export class Detial extends Component {
     );
   }
   createImgContent() {
-    // if (this.state.Content.length == 0) return;
-    // var cont = this;
-    // var itemNodes = this.state.Content.map(function(itemBase, index) {
-    //   return ;
-    // });
     return <img src={this.state.url} alt="" />;
   }
   switchType() {
@@ -147,8 +155,13 @@ export class Detial extends Component {
   render() {
     return (
       <div className={style.DetialBox}>
-        <div className={style.ContentBox} ref={"contentbox"}>
-          {this.switchType()}
+        <div className={style.ContentBox}>
+          <div
+            className={style.ContentDetial}
+            ref={"contentbox"}>
+            {this.switchType()}
+          </div>
+
           <div className={style.ReturnButton} onClick={this.HandleUrlRoute}>
             <img src={returnback} alt="" />
           </div>
