@@ -99,28 +99,28 @@ const webapi = {
             let tabGroupData = [];
             //数组化数据
             tabGroupData.push({
-                id: 1,
+                id: 3,
                 title: "舒利迭®哮喘治疗领域关键临床研究",
                 tablist: [{
-                        id: "2-3",
+                        id: "2-7",
                         value: "GOAL研究"
                     },
                     {
-                        id: "2-4",
+                        id: "2-8",
                         value: "EXCEL研究"
                     },
                     {
-                        id: "2-5",
+                        id: "2-9",
                         value: "CONCEPT研究"
                     },
                     {
-                        id: "2-6",
+                        id: "2-10",
                         value: "LundBack 3年研究"
                     }
                 ]
             });
             tabGroupData.push({
-                id: 2,
+                id: 4,
                 title: "舒利迭®哮喘治疗领域关键临床研究",
                 tablist: [{
                         id: "4-2",
@@ -141,7 +141,24 @@ const webapi = {
                 ]
             });
             tabGroupData.push({
-                id: 3,
+                id: 5,
+                title: "舒利迭®关键产品安全性信息",
+                tablist: [{
+                        id: "6-6",
+                        value: "粉吸入剂50/100、50/200 "
+                    },
+                    {
+                        id: "6-7",
+                        value: "粉吸入剂50/500"
+                    },
+                    {
+                        id: "6-8",
+                        value: "气雾剂"
+                    }
+                ]
+            });
+            tabGroupData.push({
+                id: 6,
                 title: "哮喘控制的调查问卷",
                 tablist: [{
                         id: "6-1",
@@ -155,62 +172,50 @@ const webapi = {
                         id: "6-3",
                         value: "AQLQ"
                     },
-                    {
-                        id: "6-4",
-                        value: "ATAQ"
-                    }
+                    // {
+                    //     id: "6-4",
+                    //     value: "ATAQ"
+                    // }
                 ]
             });
+            
             tabGroupData.push({
-                id: 4,
-                title: "舒利迭®关键产品安全性信息",
-                tablist: [{
-                        id: "6-7",
-                        value: "粉吸入剂50/100、50/200 "
-                    },
-                    {
-                        id: "6-8",
-                        value: "粉吸入剂50/500"
-                    },
-                    {
-                        id: "6-9",
-                        value: "气雾剂"
-                    }
-                ]
-            });
-            tabGroupData.push({
-                id: 5,
+                id: 1,
                 title: "舒利迭®慢阻肺治疗领域关键临床研究",
                 tablist: [{
-                        id: "2-4",
+                        id: "2-5",
                         value: "BIOPSY研究"
                     },
                     {
-                        id: "2-5",
-                        value: "TRISTAN研究"
-                    },
-                    {
                         id: "2-6",
-                        value: "TORCH研究"
+                        value: "Kardos P研究"
                     },
                     {
                         id: "2-7",
-                        value: "中国注册临床研究"
+                        value: "TORCH研究"
                     },
                     {
                         id: "2-8",
-                        value: "INSPIRE研究"
+                        value: "中国注册临床研究"
                     },
                     {
                         id: "2-9",
+                        value: "INSPIRE研究"
+                    },
+                    {
+                        id: "2-10",
+                        value: "TRISTAN研究"
+                    },
+                    {
+                        id: "2-11",
                         value: "TORCH事后分析"
                     }
                 ]
             });
 
             tabGroupData.push({
-                id: 6,
-                title: "2. 信必可®关键研究解读",
+                id: 2,
+                title: "竞品关键研究",
                 tablist: [{
                         id: "4-2",
                         value: "PATHOS研究"
@@ -218,11 +223,15 @@ const webapi = {
                     {
                         id: "4-3",
                         value: "SPEED研究"
+                    },
+                    {
+                        id: "4-4",
+                        value: "FLAME研究"
                     }
                 ]
             });
             tabGroupData.push({
-                id: 7,
+                id: -1,
                 title: "3.	GSO Check List",
                 tablist: [{
                     id: "2-3",
@@ -230,7 +239,7 @@ const webapi = {
                 }, ]
             });
             tabGroupData.push({
-                id: 8,
+                id: -1,
                 title: "目标医生：B类客户|关键信息：舒利迭可以让~80%患者达到真正的哮喘控制。",
                 tablist: [{
                         id: "1-1",
@@ -247,7 +256,7 @@ const webapi = {
                 ]
             });
             tabGroupData.push({
-                id: 9,
+                id: -1,
                 title: "目标医生：B类客户|关键信息：舒利迭显著降低慢阻肺高风险患者急性加重风险25%。",
                 tablist: [{
                         id: "1-4",
@@ -260,7 +269,7 @@ const webapi = {
                 ]
             });
             tabGroupData.push({
-                id: 10,
+                id: 7,
                 title: "I：CAT评估方法简介",
                 tablist: [{
                     id: "6-1",
@@ -333,8 +342,10 @@ const webapi = {
             // console.log(detialData,tabGroupData,listData,sectionData);
         };
     },
-    async getListInfo(id, callback) {
+    getListInfo(id, callback) {
         let result = [];
+        if(!window.localStorage.listData) return
+            
         let listdata = JSON.parse(window.localStorage.listData);
         for (let z = 0; z < listdata.length; z++) {
             if (listdata[z].belonged == id) {
@@ -369,9 +380,9 @@ const webapi = {
         //     };
         // };
     },
-    async getSectionInfo(father, fatherid, callback) {
+    getSectionInfo(father, fatherid, callback) {
         let result = [];
-
+        if(!window.localStorage.sectionData) return;
         let sectiondata = JSON.parse(window.localStorage.sectionData);
         for (let z = 0; z < sectiondata.length; z++) {
             if (
