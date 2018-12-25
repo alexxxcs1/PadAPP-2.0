@@ -6,7 +6,8 @@ import {
   AsthmaAnswerACQ,
   AsthmaAnswerAQLQ,
   AsthmaAnswerATAQ,
-  GsoAnswerCheckList
+  GsoAnswerCheckList,
+  CopdAnswerCAT
 } from "./AnswerComponents/";
 
 export class AnswerTab extends Component {
@@ -88,6 +89,8 @@ export class AnswerTab extends Component {
         return <AsthmaAnswerATAQ />;
       case "gso2-3":
         return <GsoAnswerCheckList />;
+      case "copd6-1":
+        return <CopdAnswerCAT />;
       default:
         break;
     }

@@ -21,21 +21,18 @@ export class LayerBox extends Component {
   }
   refreshProps(props) {
     this.state.width =
-      this.props.width != undefined ? this.props.width : this.state.width;
+      props.width != undefined ? props.width : this.state.width;
     this.state.height =
-      this.props.height != undefined ? this.props.height : this.state.height;
+      props.height != undefined ? props.height : this.state.height;
     this.state.flexdirection =
-      this.props.flexdirection != undefined
-        ? this.props.flexdirection
+      props.flexdirection != undefined
+        ? props.flexdirection
         : this.state.flexdirection;
     this.state.flexgrow =
-      this.props.flexgrow != undefined
-        ? this.props.flexgrow
-        : this.state.flexgrow;
+      props.flexgrow != undefined ? props.flexgrow : this.state.flexgrow;
     this.state.flexshrink =
-      this.props.flexshrink != undefined
-        ? this.props.flexshrink
-        : this.state.flexshrink;
+      props.flexshrink != undefined ? props.flexshrink : this.state.flexshrink;
+    this.setState(this.state);
   }
   render() {
     return (
@@ -44,9 +41,9 @@ export class LayerBox extends Component {
         style={{
           width: this.state.width + "%",
           height: this.state.height + "%",
-          flexDirection:this.state.flexdirection,
-          flexGrow:this.state.flexgrow,
-          flexShrink:this.state.flexShrink
+          flexDirection: this.state.flexdirection,
+          flexGrow: this.state.flexgrow,
+          flexShrink: this.state.flexShrink
         }}>
         {this.props.children}
       </div>

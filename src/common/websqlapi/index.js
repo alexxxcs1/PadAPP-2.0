@@ -56,41 +56,12 @@ const webapi = {
             // 做其他事情...
         };
         DBOpenRequest.onupgradeneeded = function (event) {
-            // 通常对主键，字段等进行重定义，具体参见demo
-            var db = event.target.result;
-
-            // 定义存储对象的数据项
-
-            //收藏表
-            var Collection = db.createObjectStore("Collection", {
-                keyPath: "id",
-                autoIncrement: true
-            });
-            Collection.createIndex("id", "id", {
-                unique: true
-            });
-            Collection.createIndex("route", "route");
-            Collection.createIndex("value", "value");
-
-            //内容表
-            let DetialData = db.createObjectStore("DetialData", {
-                keyPath: "id",
-                autoIncrement: true
-            });
-            DetialData.createIndex("id", "id", {
-                unique: true
-            });
-            DetialData.createIndex("belonged", "belonged");
-            DetialData.createIndex("type", "type");
-            DetialData.createIndex("tabgroup", "tabgroup");
-            DetialData.createIndex("name", "name");
-            DetialData.createIndex("url", "url");
-
             //添加内容表数据
             //asthma
+            let detialData = [];
             for (const key in asthmareqlib) {
                 let keysplit = key.split("&");
-                DetialData.add({
+                detialData.push({
                     id: "asthma" + keysplit[1],
                     belonged: "asthma",
                     type: keysplit[0],
@@ -102,7 +73,7 @@ const webapi = {
             //copd
             for (const key in copdreqlib) {
                 let keysplit = key.split("&");
-                DetialData.add({
+                detialData.push({
                     id: "copd" + keysplit[1],
                     belonged: "copd",
                     type: keysplit[0],
@@ -114,7 +85,7 @@ const webapi = {
             //gso
             for (const key in gsoreqlib) {
                 let keysplit = key.split("&");
-                DetialData.add({
+                detialData.push({
                     id: "gso" + keysplit[1],
                     belonged: "gso",
                     type: keysplit[0],
@@ -124,17 +95,10 @@ const webapi = {
                 });
             }
 
-            //创建tabgroup表
-            let TabGroupData = db.createObjectStore("TabGroupData", {
-                keyPath: "id",
-                autoIncrement: true
-            });
-            TabGroupData.createIndex("id", "id", {
-                unique: true
-            });
-            TabGroupData.createIndex("title", "title");
-            TabGroupData.createIndex("tablist", "tablist");
-            TabGroupData.add({
+            //数组化tabgroup
+            let tabGroupData = [];
+            //数组化数据
+            tabGroupData.push({
                 id: 1,
                 title: "舒利迭®哮喘治疗领域关键临床研究",
                 tablist: [{
@@ -155,7 +119,7 @@ const webapi = {
                     }
                 ]
             });
-            TabGroupData.add({
+            tabGroupData.push({
                 id: 2,
                 title: "舒利迭®哮喘治疗领域关键临床研究",
                 tablist: [{
@@ -176,7 +140,7 @@ const webapi = {
                     }
                 ]
             });
-            TabGroupData.add({
+            tabGroupData.push({
                 id: 3,
                 title: "哮喘控制的调查问卷",
                 tablist: [{
@@ -197,7 +161,7 @@ const webapi = {
                     }
                 ]
             });
-            TabGroupData.add({
+            tabGroupData.push({
                 id: 4,
                 title: "舒利迭®关键产品安全性信息",
                 tablist: [{
@@ -214,7 +178,7 @@ const webapi = {
                     }
                 ]
             });
-            TabGroupData.add({
+            tabGroupData.push({
                 id: 5,
                 title: "舒利迭®慢阻肺治疗领域关键临床研究",
                 tablist: [{
@@ -243,8 +207,8 @@ const webapi = {
                     }
                 ]
             });
-            
-            TabGroupData.add({
+
+            tabGroupData.push({
                 id: 6,
                 title: "2. 信必可®关键研究解读",
                 tablist: [{
@@ -257,16 +221,15 @@ const webapi = {
                     }
                 ]
             });
-            TabGroupData.add({
+            tabGroupData.push({
                 id: 7,
                 title: "3.	GSO Check List",
                 tablist: [{
-                        id: "2-3",
-                        value: "PATHOS研究"
-                    },
-                ]
+                    id: "2-3",
+                    value: "3.	GSO Check List"
+                }, ]
             });
-            TabGroupData.add({
+            tabGroupData.push({
                 id: 8,
                 title: "目标医生：B类客户|关键信息：舒利迭可以让~80%患者达到真正的哮喘控制。",
                 tablist: [{
@@ -283,7 +246,7 @@ const webapi = {
                     }
                 ]
             });
-            TabGroupData.add({
+            tabGroupData.push({
                 id: 9,
                 title: "目标医生：B类客户|关键信息：舒利迭显著降低慢阻肺高风险患者急性加重风险25%。",
                 tablist: [{
@@ -296,197 +259,234 @@ const webapi = {
                     },
                 ]
             });
-            //章节表
-            let ListData = db.createObjectStore("ListData", {
-                keyPath: "lid",
-                autoIncrement: true
+            tabGroupData.push({
+                id: 10,
+                title: "I：CAT评估方法简介",
+                tablist: [{
+                    id: "6-1",
+                    value: "I：CAT评估方法简介"
+                }, ]
             });
-            ListData.createIndex("id", "id");
-            ListData.createIndex("belonged", "belonged");
-            ListData.createIndex("catalog", "catalog");
-            ListData.createIndex("value", "value");
-
-            //小节表
-            let SectionData = db.createObjectStore("SectionData", {
-                keyPath: "id",
-                autoIncrement: true
-            });
-            SectionData.createIndex("id", "id", {
-                unique: true
-            });
-            SectionData.createIndex("father", "father");
-            SectionData.createIndex("belonged", "belonged");
-            SectionData.createIndex("value", "value");
-            SectionData.createIndex("to", "to");
 
             //创建章节内容
+            let sectionData = [];
+            let listData = [];
             //asthma内容
             for (let z = 0; z < listdata.asthma.length; z++) {
-                ListData.add({
+                listData.push({
                     id: z,
                     belonged: "asthma",
                     catalog: listdata.asthma[z].catalog,
                     value: listdata.asthma[z].value
-                });
+                })
                 for (let x = 0; x < listdata.asthma[z].list.length; x++) {
-                    SectionData.add({
+                    sectionData.push({
                         id: "asthamasection" + z + "-" + x,
                         father: "asthma",
                         belonged: z,
                         value: listdata.asthma[z].list[x].title,
                         to: listdata.asthma[z].list[x].to
-                    });
+                    })
                 }
             }
             //copd内容
             for (let z = 0; z < listdata.copd.length; z++) {
-                ListData.add({
+                listData.push({
                     id: z,
                     belonged: "copd",
                     catalog: listdata.copd[z].catalog,
                     value: listdata.copd[z].value
-                });
+                })
                 for (let x = 0; x < listdata.copd[z].list.length; x++) {
-                    SectionData.add({
+                    sectionData.push({
                         id: "copdsection" + z + "-" + x,
                         father: "copd",
                         belonged: z,
                         value: listdata.copd[z].list[x].title,
                         to: listdata.copd[z].list[x].to
-                    });
+                    })
                 }
             }
             //gso内容
+
             for (let z = 0; z < listdata.gso.length; z++) {
-                ListData.add({
+                listData.push({
                     id: z,
                     belonged: "gso",
                     catalog: listdata.gso[z].catalog,
                     value: listdata.gso[z].value
-                });
+                })
                 for (let x = 0; x < listdata.gso[z].list.length; x++) {
-                    SectionData.add({
+                    sectionData.push({
                         id: "gsosection" + z + "-" + x,
                         father: "gso",
                         belonged: z,
                         value: listdata.gso[z].list[x].title,
                         to: listdata.gso[z].list[x].to
-                    });
+                    })
                 }
             }
+            window.localStorage.detialData = JSON.stringify(detialData);
+            window.localStorage.tabGroupData = JSON.stringify(tabGroupData);
+            window.localStorage.listData = JSON.stringify(listData);
+            window.localStorage.sectionData = JSON.stringify(sectionData);
+            // console.log(detialData,tabGroupData,listData,sectionData);
         };
     },
     async getListInfo(id, callback) {
         let result = [];
-        let DBOpenRequest = window.indexedDB.open(dbName, dbVersion);
-        // 数据库打开成功后
-        let self = this;
-        DBOpenRequest.onsuccess = function (event) {
-            // 存储数据结果
-            let db = DBOpenRequest.result;
-            // 做其他事情...
-            let objectStore = db.transaction("ListData").objectStore("ListData");
-            objectStore.openCursor().onsuccess = function (event) {
-                let cursor = event.target.result;
-                if (cursor) {
-                    // cursor.value就是数据对象
-                    // 游标没有遍历完，继续
-                    if (cursor.value.belonged == id) {
-                        let _data = cursor.value;
-                        result.push(_data);
-                    }
-                    cursor.continue();
-                } else {
-                    // 如果全部遍历完毕...
-                    callback(result);
-                }
-            };
-        };
+        let listdata = JSON.parse(window.localStorage.listData);
+        for (let z = 0; z < listdata.length; z++) {
+            if (listdata[z].belonged == id) {
+                let _data = listdata[z];
+                result.push(_data);
+            }
+        }
+        callback(result);
+        // let result = [];
+        // let DBOpenRequest = window.indexedDB.open(dbName, dbVersion);
+        // // 数据库打开成功后
+        // let self = this;
+        // DBOpenRequest.onsuccess = function (event) {
+        //     // 存储数据结果
+        //     let db = DBOpenRequest.result;
+        //     // 做其他事情...
+        //     let objectStore = db.transaction("ListData").objectStore("ListData");
+        //     objectStore.openCursor().onsuccess = function (event) {
+        //         let cursor = event.target.result;
+        //         if (cursor) {
+        //             // cursor.value就是数据对象
+        //             // 游标没有遍历完，继续
+        //             if (cursor.value.belonged == id) {
+        //                 let _data = cursor.value;
+        //                 result.push(_data);
+        //             }
+        //             cursor.continue();
+        //         } else {
+        //             // 如果全部遍历完毕...
+        //             callback(result);
+        //         }
+        //     };
+        // };
     },
     async getSectionInfo(father, fatherid, callback) {
         let result = [];
-        let DBOpenRequest = window.indexedDB.open(dbName, dbVersion);
-        // 数据库打开成功后
-        let self = this;
-        DBOpenRequest.onsuccess = await
-        function (event) {
-            // 存储数据结果
-            let db = DBOpenRequest.result;
-            // 做其他事情...
-            let objectStore = db
-                .transaction("SectionData")
-                .objectStore("SectionData");
-            objectStore.openCursor().onsuccess = function (event) {
-                let cursor = event.target.result;
-                if (cursor) {
-                    // cursor.value就是数据对象
-                    // 游标没有遍历完，继续
-                    if (
-                        cursor.value.belonged == fatherid &&
-                        cursor.value.father == father
-                    ) {
-                        let _data = cursor.value;
-                        result.push(_data);
-                    }
-                    cursor.continue();
-                } else {
-                    // 如果全部遍历完毕...
-                    callback(result);
-                }
-            };
-        };
+
+        let sectiondata = JSON.parse(window.localStorage.sectionData);
+        for (let z = 0; z < sectiondata.length; z++) {
+            if (
+                sectiondata[z].belonged == fatherid &&
+                sectiondata[z].father == father
+            ) {
+                let _data = sectiondata[z];
+                result.push(_data);
+            }
+        }
+        callback(result);
+        // let DBOpenRequest = window.indexedDB.open(dbName, dbVersion);
+        // // 数据库打开成功后
+        // let self = this;
+        // DBOpenRequest.onsuccess = await
+
+        // function (event) {
+        //     // 存储数据结果
+        //     let db = DBOpenRequest.result;
+        //     // 做其他事情...
+        //     let objectStore = db
+        //         .transaction("SectionData")
+        //         .objectStore("SectionData");
+        //     objectStore.openCursor().onsuccess = function (event) {
+        //         let cursor = event.target.result;
+        //         if (cursor) {
+        //             // cursor.value就是数据对象
+        //             // 游标没有遍历完，继续
+        //             if (
+        //                 cursor.value.belonged == fatherid &&
+        //                 cursor.value.father == father
+        //             ) {
+        //                 let _data = cursor.value;
+        //                 result.push(_data);
+        //             }
+        //             cursor.continue();
+        //         } else {
+        //             // 如果全部遍历完毕...
+        //             callback(result);
+        //         }
+        //     };
+        // };
     },
     getDetialInfo(belongedfather, poslist, possection, callback) {
         let result = [];
-        let DBOpenRequest = window.indexedDB.open(dbName, dbVersion);
-        // 数据库打开成功后
-        let self = this;
-        DBOpenRequest.onsuccess = function (event) {
-            // 存储数据结果
-            let db = DBOpenRequest.result;
-            // 做其他事情...
-            let objectStore = db.transaction("DetialData").objectStore("DetialData");
-            objectStore.openCursor().onsuccess = function (event) {
-                let cursor = event.target.result;
-                if (cursor) {
-                    if (
-                        cursor.value.id ==
-                        belongedfather + "" + poslist + "-" + possection
-                    ) {
-                        let _data = cursor.value;
-                        result.push(_data);
-                    }
-                    cursor.continue();
-                } else {
-                    callback(result);
-                }
-            };
-        };
+
+        let detialdata = JSON.parse(window.localStorage.detialData);
+        for (let z = 0; z < detialdata.length; z++) {
+            if (
+                detialdata[z].id ==
+                belongedfather + "" + poslist + "-" + possection
+            ) {
+                let _data = detialdata[z];
+                result.push(_data);
+            }
+        }
+        callback(result)
+        // let DBOpenRequest = window.indexedDB.open(dbName, dbVersion);
+        // // 数据库打开成功后
+        // let self = this;
+        // DBOpenRequest.onsuccess = function (event) {
+        //     // 存储数据结果
+        //     let db = DBOpenRequest.result;
+        //     // 做其他事情...
+        //     let objectStore = db.transaction("DetialData").objectStore("DetialData");
+        //     objectStore.openCursor().onsuccess = function (event) {
+        //         let cursor = event.target.result;
+        //         if (cursor) {
+        //             if (
+        //                 cursor.value.id ==
+        //                 belongedfather + "" + poslist + "-" + possection
+        //             ) {
+        //                 let _data = cursor.value;
+        //                 result.push(_data);
+        //             }
+        //             cursor.continue();
+        //         } else {
+        //             callback(result);
+        //         }
+        //     };
+        // };
     },
     getTabList(tabid, callback) {
         let result = [];
-        let DBOpenRequest = window.indexedDB.open(dbName, dbVersion);
-        // 数据库打开成功后
-        let self = this;
-        DBOpenRequest.onsuccess = function (event) {
-            // 存储数据结果
-            let db = DBOpenRequest.result;
-            // 做其他事情...
-            let objectStore = db
-                .transaction("TabGroupData")
-                .objectStore("TabGroupData");
-            objectStore.openCursor().onsuccess = function (event) {
-                let cursor = event.target.result;
-                if (cursor) {
-                    if (cursor.value.id == tabid) {
-                        result.push(cursor.value);
-                    }
-                    cursor.continue();
-                } else {
-                    callback(result);
-                }
-            };
-        };
+
+        let tabgroupdata = JSON.parse(window.localStorage.tabGroupData);
+
+        for (let z = 0; z < tabgroupdata.length; z++) {
+            if (tabgroupdata[z].id == tabid) {
+                result.push(tabgroupdata[z]);
+            }
+        }
+        callback(result)
+        // let DBOpenRequest = window.indexedDB.open(dbName, dbVersion);
+        // // 数据库打开成功后
+        // let self = this;
+        // DBOpenRequest.onsuccess = function (event) {
+        //     // 存储数据结果
+        //     let db = DBOpenRequest.result;
+        //     // 做其他事情...
+        //     let objectStore = db
+        //         .transaction("TabGroupData")
+        //         .objectStore("TabGroupData");
+        //     objectStore.openCursor().onsuccess = function (event) {
+        //         let cursor = event.target.result;
+        //         if (cursor) {
+        //             if (cursor.value.id == tabid) {
+        //                 result.push(cursor.value);
+        //             }
+        //             cursor.continue();
+        //         } else {
+        //             callback(result);
+        //         }
+        //     };
+        // };
     },
     getCollection(callback) {
         if (!window.localStorage.Collection) {
@@ -526,44 +526,41 @@ const webapi = {
             window.localStorage.Collection = JSON.stringify(data);
             callback();
         }
-        // let DBOpenRequest = window.indexedDB.open(dbName, dbVersion);
-        // // 数据库打开成功后
-        // let self = this;
-        // DBOpenRequest.onsuccess =
-        //     function (event) {
-        //         // 存储数据结果
-        //         let db = DBOpenRequest.result;
-        //         // 做其他事情...
-        //         let Collection = db.transaction('Collection', 'readwrite').objectStore('Collection');
-        //         Collection.add(json);
-        //         callback();
-        //     };
     },
     searchList(searchvalue, callback) {
         let result = [];
-        let DBOpenRequest = window.indexedDB.open(dbName, dbVersion);
-        // 数据库打开成功后
-        let self = this;
-        DBOpenRequest.onsuccess = function (event) {
-            // 存储数据结果
-            let db = DBOpenRequest.result;
-            // 做其他事情...
-            let objectStore = db
-                .transaction("SectionData")
-                .objectStore("SectionData");
-            objectStore.openCursor().onsuccess = function (event) {
-                let cursor = event.target.result;
-                if (cursor) {
-                    let reg = new RegExp(searchvalue);
-                    if (cursor.value.value.match(reg)) {
-                        result.push(cursor.value);
-                    }
-                    cursor.continue();
-                } else {
-                    callback(result);
-                }
-            };
-        };
+
+        let sectiondata = JSON.parse(window.localStorage.sectionData);
+        for (let z = 0; z < sectiondata.length; z++) {
+            let reg = new RegExp(searchvalue);
+            if (sectiondata[z].value.match(reg)) {
+                result.push(sectiondata[z]);
+            }
+        }
+        callback(result);
+        // let DBOpenRequest = window.indexedDB.open(dbName, dbVersion);
+        // // 数据库打开成功后
+        // let self = this;
+        // DBOpenRequest.onsuccess = function (event) {
+        //     // 存储数据结果
+        //     let db = DBOpenRequest.result;
+        //     // 做其他事情...
+        //     let objectStore = db
+        //         .transaction("SectionData")
+        //         .objectStore("SectionData");
+        //     objectStore.openCursor().onsuccess = function (event) {
+        //         let cursor = event.target.result;
+        //         if (cursor) {
+        //             let reg = new RegExp(searchvalue);
+        //             if (cursor.value.value.match(reg)) {
+        //                 result.push(cursor.value);
+        //             }
+        //             cursor.continue();
+        //         } else {
+        //             callback(result);
+        //         }
+        //     };
+        // };
     },
     setHistory(hash) {
         if (!window.localStorage.History) {
@@ -585,34 +582,41 @@ const webapi = {
     },
     getSectionName(father, belonged, to, callback) {
         let result = [];
-        let DBOpenRequest = window.indexedDB.open(dbName, dbVersion);
-        // 数据库打开成功后
-        let self = this;
-        DBOpenRequest.onsuccess = function (event) {
-            // 存储数据结果
-            let db = DBOpenRequest.result;
-            // 做其他事情...
-            let objectStore = db
-                .transaction("SectionData")
-                .objectStore("SectionData");
-            objectStore.openCursor().onsuccess = function (event) {
-                let cursor = event.target.result;
-                if (cursor) {
-                    if (cursor.value.father == father && cursor.value.belonged == belonged && cursor.value.to == to) {
-                        result.push(cursor.value);
-                    }
-                    cursor.continue();
-                } else {
-                    callback(result);
-                }
-            };
-        };
+        let sectiondata = JSON.parse(window.localStorage.sectionData);
+        for (let z = 0; z < sectiondata.length; z++) {
+            if (sectiondata[z].father == father && sectiondata[z].belonged == belonged && sectiondata[z].to == to) {
+                result.push(sectiondata[z]);
+            }
+        }
+        callback(result);
+        // let DBOpenRequest = window.indexedDB.open(dbName, dbVersion);
+        // // 数据库打开成功后
+        // let self = this;
+        // DBOpenRequest.onsuccess = function (event) {
+        //     // 存储数据结果
+        //     let db = DBOpenRequest.result;
+        //     // 做其他事情...
+        //     let objectStore = db
+        //         .transaction("SectionData")
+        //         .objectStore("SectionData");
+        //     objectStore.openCursor().onsuccess = function (event) {
+        //         let cursor = event.target.result;
+        //         if (cursor) {
+        //             if (cursor.value.father == father && cursor.value.belonged == belonged && cursor.value.to == to) {
+        //                 result.push(cursor.value);
+        //             }
+        //             cursor.continue();
+        //         } else {
+        //             callback(result);
+        //         }
+        //     };
+        // };
     },
-    clearHistory(callback){
+    clearHistory(callback) {
         window.localStorage.History = JSON.stringify([]);
         callback();
     },
-    setReadRate(id,rate,callback){
+    setReadRate(id, rate, callback) {
         if (!window.localStorage.ReadRate) {
             let json = {};
             json[id] = rate;
@@ -620,9 +624,9 @@ const webapi = {
             window.localStorage.ReadRate = JSON.stringify(firstarray);
         } else {
             let data = JSON.parse(window.localStorage.ReadRate);
-            if (data[id]!=undefined) {
-                data[id] = data[id]<rate?rate:data[id];
-            }else{
+            if (data[id] != undefined) {
+                data[id] = data[id] < rate ? rate : data[id];
+            } else {
                 data[id] = rate;
             }
             window.localStorage.ReadRate = JSON.stringify(data);
