@@ -52,6 +52,13 @@ export class BotBanner extends Component {
               act={this.state.location[1] == "copd" ? true : false}
             />
           </Link>
+          <Link to={'/paediatricasthma/list/0'}>
+            <IconBox
+              inverse={this.state.inverse}
+              img={reqlib.paediatricasthma}
+              act={this.state.location[1] == "paediatricasthma" ? true : false}
+            />
+          </Link>
           <Link to={'/gso/list/0'}>
             <IconBox
               inverse={this.state.inverse}

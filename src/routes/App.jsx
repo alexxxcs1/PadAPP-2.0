@@ -6,6 +6,7 @@ import Asthma from "./Asthma";
 import Copd from "./Copd";
 import Gso from "./Gso";
 import Study from "./Study";
+import PaediatricAsthma from "./PaediatricAsthma";
 import Reference from "./Reference";
 import Home from "routes/Home";
 import websqlapi from 'common/websqlapi'
@@ -36,6 +37,7 @@ class App extends Component {
             <Switch>
               <Route path="/asthma" component={Asthma} />
               <Route path="/copd" component={Copd} />
+              <Route path="/paediatricasthma" component={PaediatricAsthma} />
               <Route path="/gso" component={Gso} />
               <Route path="/study" component={Study} />
               <Route path="/reference" component={Reference} />

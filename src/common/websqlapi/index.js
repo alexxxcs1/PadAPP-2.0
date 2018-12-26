@@ -231,7 +231,7 @@ const webapi = {
                 ]
             });
             tabGroupData.push({
-                id: -1,
+                id: 8,
                 title: "3.	GSO Check List",
                 tablist: [{
                     id: "2-3",
@@ -239,24 +239,24 @@ const webapi = {
                 }, ]
             });
             tabGroupData.push({
-                id: -1,
+                id: 9,
                 title: "目标医生：B类客户|关键信息：舒利迭可以让~80%患者达到真正的哮喘控制。",
                 tablist: [{
-                        id: "1-1",
+                        id: "3-1",
                         value: "较轻未控制"
                     },
                     {
-                        id: "1-2",
+                        id: "3-2",
                         value: "较重未控制"
                     },
                     {
-                        id: "1-3",
+                        id: "3-3",
                         value: "持续性咳嗽未控制"
                     }
                 ]
             });
             tabGroupData.push({
-                id: -1,
+                id: 10,
                 title: "目标医生：B类客户|关键信息：舒利迭显著降低慢阻肺高风险患者急性加重风险25%。",
                 tablist: [{
                         id: "1-4",
