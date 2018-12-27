@@ -51,11 +51,14 @@ export class TopBanner extends Component {
   GotoHistory(){
     window.location.hash = window.location.hash.split('/')[0] + '/' + window.location.hash.split('/')[1] + '/history';
   }
+  GotoHome(){
+    window.location.hash = window.location.hash.split('/')[0] + '/' + window.location.hash.split('/')[1];
+  }
   render() {
     return (
       <div className={style.TopBannerBox}>
         <div className={style.LeftBox}>
-          <IconBox inverse={true} img={reqlib.home}  />
+          <IconBox inverse={true} img={reqlib.home} onClick={this.GotoHome} />
         </div>
         <div className={style.RightBox}>
           <IconBox inverse={true} img={reqlib.save} onClick={this.SaveToCollection} />

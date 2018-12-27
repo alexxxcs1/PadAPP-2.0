@@ -59,8 +59,7 @@ export class TabNav extends Component {
             style.Button,
             cont.state.id == itemBase.id.split("-")[1] ? style.act : ""
           ].join(" ")}
-          onClick={cont.handleJumpurl.bind(cont, itemBase.id.split("-")[1])}>
-          {itemBase.value}
+          onClick={cont.handleJumpurl.bind(cont, itemBase.id.split("-")[1])} dangerouslySetInnerHTML={{__html:itemBase.value}}>
         </div>
       );
     });
@@ -73,13 +72,8 @@ export class TabNav extends Component {
   render() {
     return (
       <div className={style.TabNavBox}>
-        <div className={style.TitleBox}>
-          <span>
-            {this.state.Title != null ? this.state.Title.split("|")[0] : ""}
-          </span>
-          <span>
-            {this.state.Title != null ? this.state.Title.split("|")[1] : ""}
-          </span>{" "}
+        <div className={style.TitleBox} dangerouslySetInnerHTML={{__html:this.state.Title != null ?this.state.Title:''}}>
+          
         </div>
         <div className={style.NavButtonBox}>{this.createTabList()}</div>
         <div className={style.NavContent}>{this.createTabContent()}</div>

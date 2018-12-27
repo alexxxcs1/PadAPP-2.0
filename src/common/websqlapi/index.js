@@ -100,7 +100,7 @@ const webapi = {
             //数组化数据
             tabGroupData.push({
                 id: 3,
-                title: "舒利迭®哮喘治疗领域关键临床研究",
+                title: "舒利迭<sup>®</sup>哮喘治疗领域关键临床研究",
                 tablist: [{
                         id: "2-7",
                         value: "GOAL研究"
@@ -121,7 +121,7 @@ const webapi = {
             });
             tabGroupData.push({
                 id: 4,
-                title: "舒利迭®哮喘治疗领域关键临床研究",
+                title: "舒利迭<sup>®</sup>哮喘治疗领域关键临床研究",
                 tablist: [{
                         id: "4-2",
                         value: "COSMOS研究"
@@ -142,7 +142,7 @@ const webapi = {
             });
             tabGroupData.push({
                 id: 5,
-                title: "舒利迭®关键产品安全性信息",
+                title: "舒利迭<sup>®</sup>关键产品安全性信息",
                 tablist: [{
                         id: "6-6",
                         value: "粉吸入剂50/100、50/200 "
@@ -181,7 +181,7 @@ const webapi = {
             
             tabGroupData.push({
                 id: 1,
-                title: "舒利迭®慢阻肺治疗领域关键临床研究",
+                title: "舒利迭<sup>®</sup>慢阻肺治疗领域关键临床研究",
                 tablist: [{
                         id: "2-5",
                         value: "BIOPSY研究"

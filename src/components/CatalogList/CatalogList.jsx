@@ -79,9 +79,10 @@ export class CatalogList extends Component {
               cont.state.ListIndex == index ? style.ActButton : ""
             ].join(" ")}>
             <div className={style.Catalog}>{itemBase.catalog}</div>
-            <div className={style.Value}>
-              {itemBase.value.split("|")[0]} <br />
-              {itemBase.value.split("|")[1]}
+            <div className={style.Value} dangerouslySetInnerHTML={{__html:itemBase.value}}>
+              {/* {itemBase.value.split("|")[0]} <br />
+              {itemBase.value.split("|")[1]} */}
+              
             </div>
           </div>
         </Link>
@@ -128,7 +129,7 @@ export class CatalogList extends Component {
                     "-" +
                     itemBase.to
                 ]==1?<img src={readall} alt=""/>:<img src={readhalf} alt=""/>)}{" "}
-            <span>{itemBase.value}</span> 
+            <div dangerouslySetInnerHTML={{__html:itemBase.value}}></div> 
           </div>
         </Link>
       );
