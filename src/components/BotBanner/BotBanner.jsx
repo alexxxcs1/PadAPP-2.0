@@ -81,7 +81,9 @@ export class BotBanner extends Component {
             />
           </Link>
         </div>
-        <div className={style.RightBox} />
+        <div className={style.RightBox} >
+          <img src={reqlib.logo} className={style.Logo} alt=""/>
+        </div>
       </div>
     );
   }

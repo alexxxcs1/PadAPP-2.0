@@ -23,5 +23,10 @@
         display: flex;
         justify-content: flex-end;
         align-items: center;
+        .Logo{
+            width: 74px;
+            margin: 0 27px 16px 27px;
+            // margin-bottom: 16px;
+        }
     }
 }

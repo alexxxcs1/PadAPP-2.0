@@ -66,6 +66,8 @@ export class TopBanner extends Component {
           <IconBox inverse={true} img={reqlib.display} onClick={this.GotoCollection} />
           <IconBox inverse={true} img={reqlib.search}  onClick={this.GotoSearch}/>
           <IconBox inverse={true} img={reqlib.history} onClick={this.GotoHistory} />
+          {/* <IconBox inverse={false} img={reqlib.logo} /> */}
+          <img src={reqlib.logo} className={style.Logo} alt=""/>
         </div>
       </div>
     );
