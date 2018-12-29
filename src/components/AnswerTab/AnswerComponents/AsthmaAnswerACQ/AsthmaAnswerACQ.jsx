@@ -140,10 +140,10 @@ export class AsthmaAnswerACQ extends Component {
               </div>
               平均分值：<div className={style.Score}>{this.state.score}</div>{" "}
               {this.state.score < 0.75
-                ? "完全控制"
+                ? "哮喘已完全得到控制"
                 : this.state.score >1.5
-                ? "哮喘没有得到控制，需要求助医生。"
-                : "控制情况不理想。"}
+                ? "哮喘未得到控制"
+                : "哮喘得到良好控制"}
             </div>
           </div>
         ) : (
@@ -158,7 +158,7 @@ export class AsthmaAnswerACQ extends Component {
         </div>
         <div className={style.RowTextBox}>
           <span className={style.BoldFont}>评定标准</span>
-          :7个问题的平均分值＜0.75为哮喘控制，＞1.50为哮喘未控制。
+          :7个问题的平均分值＜0.75分表示哮喘已完全得到控制，0.75~1.50分表示哮喘得到良好控制，＞1.50分表示哮喘未得到控制。
         </div>
         <div className={style.RowTextBox}>
           <span className={style.BoldFont}>适用人群</span>

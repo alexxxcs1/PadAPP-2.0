@@ -28,22 +28,12 @@ export class AsthmaAnswerAQLQ extends Component {
       ],
       resultOption: [
         "1）完全受限",
-        "2）极度受限",
-        "3）重度受限",
-        "4）中度受限",
-        "5）轻度受限",
-        "6）很少受限",
-        "7）受限"
+        "2）重度受限",
+        "3）中度受限",
+        "4）轻度受限",
+        "5）不受限"
       ],
-      resultOption2: [
-        "1）一直",
-        "2）非常频繁",
-        "3）频繁",
-        "4）经常化",
-        "5）有时侯",
-        "6）偶尔",
-        "7）从未有"
-      ],
+      resultOption2: ["1）一直", "2）频繁", "3）经常", "4）有时侯", "5）从未"],
       answerBindPos: [null, null],
       answer: [
         [null, null, null, null, null],
@@ -79,35 +69,35 @@ export class AsthmaAnswerAQLQ extends Component {
           null
         ]
       ],
-      questionend:[
-        '在上2周中，您因身边或周围环境中香烟气味而走开；',
-        '在上2周中，您因身边或周围环境中有异味或香水味而走开',
-        '在上2周中，您因身边或周围环境中灰尘而走开',
-        '在上2周中，您因身边或周围环境中有煤烟味或炒菜油烟而走开；',
-        '在上2周中，悠因身边或周围环境中烟雾或气候变化而被迫呆在家中或被迫外出；',
-        '在上2周中，您常因哮喘而上气不接下气；',
-        '在上2周中，您的气喘发作是',
-        '在上2周中，您因咳嗽而觉得不适；',
-        '在上2周中，您有窒息感或濒死感；',
-        '在上2周中，您觉得胸闷；',
-        '在上2周中，您在早晨醒来时哮喘发作；',
-        '在上2周中，您因哮喘发作而惊醒',
-        '在上2周中，您因哮喘发作而影响睡眠；',
-        '在上2周中，您因哮喘发作而心情烦躁',
-        '在上2周中，您因哮喘而感到悲观或心情压抑',
-        '在上2周中，您因哮喘反复发作而对治疗失去信心',
-        '在上2周中，您当着别人面吸入气雾剂感到难为情',
-        '在上2周中，您总担心身边没有哮喘防治药物',
-        '在上2周中，您担心哮喘发作；',
-        '在上2周中，您因接触到香烟而引起哮喘发作；',
-        '在上2周中，您因灰尘引起的哮喘发作；',
-        '在上2周中，您因接触到煤烟气味或炒菜油烟引起的哮喘发作；',
-        '在上2周中，您因接触到异味或香水味引起哮喘发作；',
-        '在上2周中，您因气候变化或烟雾引起哮喘发作；',
-        '在上2周中，您因哮喘担心目前的健康状况',
-        '在上2周中，您因哮喘担心将来的健康状况；',
-        '在上2周中，您担心哮喘缩短自己的寿命；',
-        '在上2周中，您担心自己对药物有依赖；',
+      questionend: [
+        "在上2周中，您因身边或周围环境中香烟气味而走开；",
+        "在上2周中，您因身边或周围环境中有异味或香水味而走开",
+        "在上2周中，您因身边或周围环境中灰尘而走开",
+        "在上2周中，您因身边或周围环境中有煤烟味或炒菜油烟而走开；",
+        "在上2周中，悠因身边或周围环境中烟雾或气候变化而被迫呆在家中或被迫外出；",
+        "在上2周中，您常因哮喘而上气不接下气；",
+        "在上2周中，您的气喘发作是",
+        "在上2周中，您因咳嗽而觉得不适；",
+        "在上2周中，您有窒息感或濒死感；",
+        "在上2周中，您觉得胸闷；",
+        "在上2周中，您在早晨醒来时哮喘发作；",
+        "在上2周中，您因哮喘发作而惊醒",
+        "在上2周中，您因哮喘发作而影响睡眠；",
+        "在上2周中，您因哮喘发作而心情烦躁",
+        "在上2周中，您因哮喘而感到悲观或心情压抑",
+        "在上2周中，您因哮喘反复发作而对治疗失去信心",
+        "在上2周中，您当着别人面吸入气雾剂感到难为情",
+        "在上2周中，您总担心身边没有哮喘防治药物",
+        "在上2周中，您担心哮喘发作；",
+        "在上2周中，您因接触到香烟而引起哮喘发作；",
+        "在上2周中，您因灰尘引起的哮喘发作；",
+        "在上2周中，您因接触到煤烟气味或炒菜油烟引起的哮喘发作；",
+        "在上2周中，您因接触到异味或香水味引起哮喘发作；",
+        "在上2周中，您因气候变化或烟雾引起哮喘发作；",
+        "在上2周中，您因哮喘担心目前的健康状况",
+        "在上2周中，您因哮喘担心将来的健康状况；",
+        "在上2周中，您担心哮喘缩短自己的寿命；",
+        "在上2周中，您担心自己对药物有依赖；"
       ]
     };
     this.refreshProps = this.refreshProps.bind(this);
@@ -226,27 +216,19 @@ export class AsthmaAnswerAQLQ extends Component {
                   </div>
                   <div onClick={cont.changeStateValue.bind(cont, 1)}>
                     {" "}
-                    2）极度受限
+                    2）重度受限
                   </div>
                   <div onClick={cont.changeStateValue.bind(cont, 2)}>
                     {" "}
-                    3）重度受限
+                    3）中度受限
                   </div>
                   <div onClick={cont.changeStateValue.bind(cont, 3)}>
                     {" "}
-                    4）中度受限
+                    4）轻度受限
                   </div>
                   <div onClick={cont.changeStateValue.bind(cont, 4)}>
                     {" "}
-                    5）轻度受限
-                  </div>
-                  <div onClick={cont.changeStateValue.bind(cont, 5)}>
-                    {" "}
-                    6）很少受限
-                  </div>
-                  <div onClick={cont.changeStateValue.bind(cont, 6)}>
-                    {" "}
-                    7）受限
+                    5）不受限
                   </div>
                 </div>
               </div>
@@ -273,31 +255,23 @@ export class AsthmaAnswerAQLQ extends Component {
                 <div className={style.ActiveDropBox}>
                   <div onClick={cont.changeStateValue.bind(cont, 0)}>
                     {" "}
-                    1）完全受限
+                    1）一直
                   </div>
                   <div onClick={cont.changeStateValue.bind(cont, 1)}>
                     {" "}
-                    2）极度受限
+                    2）频繁
                   </div>
                   <div onClick={cont.changeStateValue.bind(cont, 2)}>
                     {" "}
-                    3）重度受限
+                    3）经常
                   </div>
                   <div onClick={cont.changeStateValue.bind(cont, 3)}>
                     {" "}
-                    4）中度受限
+                    4）有时侯
                   </div>
                   <div onClick={cont.changeStateValue.bind(cont, 4)}>
                     {" "}
-                    5）轻度受限
-                  </div>
-                  <div onClick={cont.changeStateValue.bind(cont, 5)}>
-                    {" "}
-                    6）很少受限
-                  </div>
-                  <div onClick={cont.changeStateValue.bind(cont, 6)}>
-                    {" "}
-                    7）受限
+                    5）从未
                   </div>
                 </div>
               </div>
@@ -311,9 +285,11 @@ export class AsthmaAnswerAQLQ extends Component {
         var itemNodes = this.state.answer[2].map(function(itemBase, index) {
           return (
             <div className={style.RowSelect}>
-              <div style={{flexGrow:'1'}}>{8 + index}.{cont.state.questionend[index]}</div>
+              <div style={{ flexGrow: "1" }}>
+                {8 + index}.{cont.state.questionend[index]}
+              </div>
               <div
-                style={{flexShrink:'0'}}
+                style={{ flexShrink: "0" }}
                 className={style.activeSelectOption}
                 tabIndex="-1"
                 onFocus={cont.bindData.bind(cont, [2, index])}
@@ -383,13 +359,12 @@ export class AsthmaAnswerAQLQ extends Component {
           哮喘生存质量量表（AQLQ）内容包括5个面:活动受限（12项）、哮喘症状（8项）、对刺激原反应（6项）、心理情绪（5项）、自我健康的关心（4项）共计35条项目，原采用7分制现改为5分制评分方法，评分越低，受影响程度越重。该量表常用于科研。
         </div>
         <div className={style.RowTextBox}>
-          AQLQ包括35个项目，包括活动受限（1～12），哮喘症状（13-21），心理状况（22-26），对刺激原的反应（27-31），对自身健康的关心（32—35）。
-        </div>
-        <div className={style.RowTextBox}>
-          按7分制评分，1分为最差，7分为最好，请逐项选钩
-        </div>
-        <div className={style.RowTextBox}>
-          下面是人们最常见的日常活动，请指出您平时最经常参与的5项活动，若您平时生活中的活动未列于下列表中，请您另选，然后将您选出的5个项目填到下列5个空格中，并逐项打分
+          本表共有35 条项目, 包括活动受限( 1~12 ) , 哮喘症状 ( 13~20 ) ,
+          心理状况( 21~26 ), 对刺激原的反应( 27~31) , 对自身健康的关心( 32~ 35
+          )。按5分制评分, l 分为最差, 5分为最好, 请逐项选择打勾。
+          下面是人们最常见的日常活动, 请指出您平时最经常参与的5 项活动,
+          若您平时生活中的活动未列人下列表中, 请您另选, 然后将您选出的5
+          条项目填到1~5项的空格中,并逐项打分。
         </div>
 
         <div className={[style.ContentBox, style.OptionBox].join(" ")}>
@@ -408,11 +383,11 @@ export class AsthmaAnswerAQLQ extends Component {
         </div>
         <div className={style.ContentBox}>{this.createQuestionSelect(2)}</div>
 
-        <div className={style.SubmitBox}>
+        {/* <div className={style.SubmitBox}>
           <div className={style.SubmitButton} onClick={this.onSubmit}>
             提交
           </div>
-        </div>
+        </div> */}
       </div>
     );
   }
